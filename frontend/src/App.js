@@ -1,11 +1,17 @@
 import "bootstrap/dist/css/bootstrap.css";
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home/Index";
+import Header from "./Components/Header";
 
 function App() {
   return (
-    <>
-      <h1 className='text-danger'>E-Commerce web in reactjs</h1>
-    </>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,38 +1,93 @@
-.App {
-  text-align: center;
+* {
+  margin: 0px;
+  padding: 0px;
 }
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-family: "Lato", serif;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.bg-color {
+  background: #233a95;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.headerWrapper .top-strip {
+  padding: 8px 0px;
+}
+.headerWrapper .top-strip p {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400;
+}
+.logoWrapper img {
+  height: 60px;
+}
+.header .container .row {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.header .container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.header {
+  padding: 10px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0;
+  margin: 0;
 }
-
-.App-link {
-  color: #61dafb;
+.header .headerSearch {
+  width: 60%;
+  height: 60px;
+  background: #f3f4f7;
+  padding: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px;
+  border-radius: 10px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header .headerSearch input {
+  background: transparent;
+  outline: none !important;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.8);
+  height: 50px;
+  width: 80%;
+  border: none;
+  flex: 1;
+}
+.header .headerSearch button {
+  height: 50px;
+  width: 6%;
+  border: none;
+  margin-left: auto;
+}
+.header .headerSearch button svg {
+  font-size: 22px;
+}
+.header .user .circle {
+  width: 50px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  right: 15px;
+  top: 15px;
+  border: 1px rgba(0, 0, 0, 0.8) !important ;
+}
+.header .user .circle svg {
+  font-size: 28px;
+}
+.header .cartTab .cart svg {
+  font-size: 28px;
+}
+.header .cartTab .cart {
+  width: 50px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ffffff;
+  right: 15px;
+  top: 15px;
+  border: 1px rgba(0, 0, 0, 0.8) !important ;
 }
