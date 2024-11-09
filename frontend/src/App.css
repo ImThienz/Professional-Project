@@ -4,6 +4,11 @@
 }
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
+@media(min-width:1200px){
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1140px;
+}}
+
 body {
   font-family: "Lato", serif;
 }
@@ -91,3 +96,20 @@ body {
   top: 15px;
   border: 1px rgba(0, 0, 0, 0.8) !important ;
 }
+
+nav .allCatTab{background: #2bbef9; padding: 8px 20px !important; border-radius: 30px !important;}
+nav .allCatTab *{color: #fff;}
+nav .allCatTab:hover{background: #0634ff;}
+nav .allCatTab .text{font-weight: 600; }
+
+nav .allCatTab .icon1 svg{font-size:20px !important; }
+nav .allCatTab .icon2 svg{font-size:15px !important; }
+
+nav .navPart2 ul{margin-bottom:0px;}
+nav .navPart2 ul li a{font-size: 15px; font-weight: 600; text-decoration: none; 
+    color: rgba(0,0,0,0.8); text-transform: uppercase;
+display: flex; align-items:center; padding: 10px 20px; transition: all 0.2s ease-in-out;}
+
+nav .navPart2 ul li a svg{font-size:20px;}
+
+nav .navPart2 ul li a:hover{background: #f0faff; color:#2bbef9;}

@@ -1,8 +1,11 @@
 import Logo from "../../assets/logo.jpg";
 import { Link } from "react-router-dom";
-import { IoSearch } from "react-icons/io5";
+//import { IoSearch } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
+import Button from '@mui/material/Button';
+import SearchBox from "./SearchBox";
+import Navigation from "./Navigation";
 const Header = () => {
   return (
     <>
@@ -14,8 +17,7 @@ const Header = () => {
             </p>
           </div>
         </div>
-      </div>
-      <header className="header">
+        <header className="header">
         <div className="container-fluid">
           <div className="row">
             <div className="logoWrapper col-sm-2 d-flex align-items-center">
@@ -24,27 +26,30 @@ const Header = () => {
               </Link>
             </div>
             {/* thanh tim kiem */}
-            <div className="headerSearch ml-3 mr-3">
-              <input type="text" placeholder="Tim kiem truyen"></input>
-              <button>
-                <IoSearch />
-              </button>
-            </div>
+            
             {/* thanh tim kiem */}
+
+            <SearchBox/>
+
             <div className="user d-flex align-items-center ml-auto">
-              <button className="circle mr-3">
+              <Button className="circle mr-3">
                 <FaUserCircle />
-              </button>
+              </Button>
               <div className="cartTab  ">
                 <span className="price">55.000VND</span>
-                <button className="cart ml-2 ">
+                <Button className="cart ml-3 ">
                   <FaShoppingCart />
-                </button>
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      </header>
+        </header>
+
+        <Navigation/>
+        
+      </div>
+
     </>
   );
 };
