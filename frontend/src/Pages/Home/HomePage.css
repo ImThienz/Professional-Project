@@ -1,0 +1,38 @@
+/* Định dạng chung cho trang */
+.comic-list-container {
+    overflow-x: auto; /* Bật cuộn ngang */
+    white-space: nowrap; /* Bảo đảm các phần tử nằm ngang */
+    padding: 20px;
+}
+
+.comic-list {
+    display: flex;
+    gap: 20px;
+}
+
+.comic-item {
+    flex: 0 0 auto; /* Đảm bảo các phần tử không co lại */
+    width: 200px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comic-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.comic-title {
+    font-size: 20px !important;
+    margin: 10px 0 5px;
+}
+
+.comic-description {
+    font-size: 0.9em;
+    color: #666;
+}
+  

@@ -1,0 +1,108 @@
+===========================================
+frontend:
+-----------------------------
+	CMD:
+npx create-react-app ./
+npm i react-router-dom
+
+npm install --save react-icon
+npm i
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components
+npm install @mui/icons-material
+
+npm install react-slick --save
+
+-----------------------------
+	Web:
+react-icon (https://www.npmjs.com/package/react-icon)
+slick slider npm (https://www.npmjs.com/package/react-slick)
+
+-----------------------------
+	Files:
+<package.json>: Add "bootstrap": "^4.1.3" 
+
+
+-----------------------------
+	rm files:
+(src/) reportWebVitals.js / setupTests.js / App.test.js / index.css /
+(public) logo192-152.png / 
+
+-----------------------------
+
+PAGE:	Home
+	Product list
+	product details
+	Cart
+	Sign in
+	Sign up
+	My list
+	Orders
+	Search
+
+===========================================
+Video 4 (9/11): 11'40''
+
+
+===========================================
+		BRANCH:
+frontend/
+├── node_modules/
+│   └── ...
+├── public/
+│   └── ...
+├── src/
+│   ├── assets/
+│   └── Components/
+│	│		└── Header/
+│	│		│		├── Navigation/
+│	│		│		│		└── index.js
+│	│		│		├── SearchBox/
+│	│		│		│		└── index.js
+│	│		│		└── index.js
+│	│		└── HomeBanner/
+│	│				└── index.js
+│   └── Pages/
+│	│		├── Home/
+│	│		│		└── Index.js
+│	│		└── DetailPage/
+│	│				└── Index.js
+│   ├── App.css
+│   ├── App.js
+│   └── index.js
+├── package-lock.json
+└── package.json
+
+npm install axios
+npm install react-router-dom
+
+
+-----------------------------
+
+backend/
+├── models/
+│   ├── Category.js
+│   ├── Chapter.js
+│   ├── Comic.js
+│   ├── Rating.js
+│   └── User.js
+├── node_modules/
+│   └── ...
+├── routes/
+│   ├── categoryRoutes.js
+│   ├── chapterRoutes.js
+│   ├── comicRoutes.js
+│   ├── ratingRoutes.js
+│   └── userRoutes.js
+├── app.js
+├── package-lock.json
+└── package.json
+
+mkdir backend                           
+cd backend
+npm init -y
+
+npm install express mongoose cors
+npm start
+===========================================
+

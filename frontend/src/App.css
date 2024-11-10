@@ -4,10 +4,18 @@
 }
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
-@media(min-width:1200px){
-.container, .container-lg, .container-md, .container-sm, .container-xl {
+@import url("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css");
+
+@media (min-width: 1200px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
     max-width: 1140px;
-}}
+  }
+}
 
 body {
   font-family: "Lato", serif;
@@ -97,19 +105,149 @@ body {
   border: 1px rgba(0, 0, 0, 0.8) !important ;
 }
 
-nav .allCatTab{background: #2bbef9; padding: 8px 20px !important; border-radius: 30px !important;}
-nav .allCatTab *{color: #fff;}
-nav .allCatTab:hover{background: #0634ff;}
-nav .allCatTab .text{font-weight: 600; }
+nav .allCatTab {
+  background: #2bbef9;
+  padding: 8px 20px !important;
+  border-radius: 30px !important;
+}
+nav .allCatTab * {
+  color: #fff;
+}
+nav .allCatTab:hover {
+  background: #0634ff;
+}
+nav .allCatTab .text {
+  font-weight: 600;
+  font-size: 14px;
+}
 
-nav .allCatTab .icon1 svg{font-size:20px !important; }
-nav .allCatTab .icon2 svg{font-size:15px !important; }
+nav .allCatTab .icon1 svg {
+  font-size: 20px !important;
+}
+nav .allCatTab .icon2 svg {
+  font-size: 15px !important;
+}
+nav .navPart1 .cartWrapper {
+  position: relative;
+}
+nav .navPart1 .cartWrapper .sidebarNav {
+  width: 100%;
+  height: 0px;
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px 0px;
+  transition: all 0.2s;
+  visibility: hidden;
+}
+nav .navPart1 .cartWrapper .sidebarNav {
+  width: 100%;
+  height: 0px;
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 15px 0px;
+  transition: all 0.2s;
+  visibility: hidden;
+  z-index: 100;
+}
+nav .navPart1 .cartWrapper .sidebarNav.open {
+  height: auto;
+  opacity: 1;
+  visibility: inherit;
+}
 
-nav .navPart2 ul{margin-bottom:0px;}
-nav .navPart2 ul li a{font-size: 15px; font-weight: 600; text-decoration: none; 
-    color: rgba(0,0,0,0.8); text-transform: uppercase;
-display: flex; align-items:center; padding: 10px 20px; transition: all 0.2s ease-in-out;}
+nav .navPart2 ul {
+  margin-bottom: 0px;
+}
+nav .navPart2 ul li a {
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  transition: all 0.2s ease-in-out;
+}
 
-nav .navPart2 ul li a svg{font-size:20px;}
+nav .navPart2 ul li a svg {
+  font-size: 20px;
+}
 
-nav .navPart2 ul li a:hover{background: #f0faff; color:#2bbef9;}
+nav .navPart2 ul li a:hover {
+  background: #f0faff;
+  color: #2bbef9;
+}
+nav .navPart2 ul li {
+  position: relative;
+}
+
+nav .navPart2 ul li .submenu {
+  position: absolute;
+  top: 150%;
+  left: 0px; 
+  min-width: 200px;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+  z-index: 100;
+}
+nav .navPart2 ul li .submenu a {
+  display: block;
+  width: 100%;
+}
+nav .navPart2 ul li .submenu a button {
+  width: 100%;
+  justify-content: flex-start !important;
+  border-radius: 0px !important;
+  text-transform: capitalize !important;
+  font-weight: 600 !important;
+}
+nav .navPart2 ul li .submenu a button:hover {
+  background: #f1f1f1 !important;
+}
+nav .navPart2 ul li:hover .submenu{
+  opacity: 1;
+  visibility: inherit;
+  top: 100%;
+}
+
+.homeBannerSection{
+  position: relative;
+  overflow: hidden;
+}
+.homeBannerSection * {
+  outline: none !important;
+
+}
+.homeBannerSection .slick-arrow{
+  position: absolute;
+  top:45%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px !important;
+  height: 40px !important;
+  background: #000;
+  border-radius: 100%;
+  font-family: FontAwesome !important;
+}
+.homeBannerSection .slick-arrow.slick-next{
+  left: 25px !important;
+}
+.homeBannerSection .slick-arrow.slick-prev{
+  right: 25px !important;
+}
+.homeBannerSection .slick-arrow.slick-next::before{
+  content: "\f104"; 
+  font-family: FontAwesome !important;
+  color: #fff;
+}
