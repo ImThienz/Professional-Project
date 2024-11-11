@@ -12,6 +12,8 @@ npm install @mui/material @mui/styled-engine-sc styled-components
 npm install @mui/icons-material
 
 npm install react-slick --save
+npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+
 
 -----------------------------
 	Web:
@@ -60,6 +62,8 @@ frontend/
 │	│		└── HomeBanner/
 │	│				└── index.js
 │   └── Pages/
+│	│		├── Favorites/
+│	│		│		└── index.js
 │	│		├── Home/
 │	│		│		└── Index.js
 │	│		└── DetailPage/

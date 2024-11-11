@@ -36,3 +36,15 @@
     color: #666;
 }
   
+.favorite-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: gray;
+    transition: color 0.3s ease;
+  }
+  
+  .favorite-icon.active {
+    color: red;
+  }
+  
+  
