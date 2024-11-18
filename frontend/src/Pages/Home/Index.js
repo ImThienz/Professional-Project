@@ -5,7 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import './HomePage.css';
 
+import { FaArrowRight } from "react-icons/fa6";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Pagination, Navigation } from 'swiper/modules';
+import Rating from '@mui/material/Rating';
+
 const HomePage = () => {
+  var productSliderOptions = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    centerMode: false,
+    arrows: true,
+  };
+
   const [comics, setComics] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -74,6 +91,86 @@ const HomePage = () => {
           </div>
         )}
       </div>
+
+
+      <div className='col-md-9 productRow'>
+        <div className='d-flex align-items-center'>
+          <div className='info w-75'>
+            <h2 className='mb-0 hd mt-4'>BEST SELLERS</h2>
+            <p className='text-light text-sml mb-0'>
+              Truyện bán chạy số 1 tại Việt Nam!!!
+            </p>
+          </div>
+
+          <button className='viewAllBtn ml-auto'>Xem tất cả <FaArrowRight/></button>
+        </div>
+
+        <div className='product_row w-100 mt-4'>
+          {/* <Slider {...productSliderOptions}> */}
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Navigation]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <div className='item productItem'>
+                  <div className='imgWrapper'>
+                    <img src='https://static.wikia.nocookie.net/onepiece/images/2/2b/Sabaody_Archipelago_Arc.png'
+                      alt='Product 1' className='w-100' />
+
+                      <h4>One Piece</h4>
+                      <span className='text-success d-block'>In Stock</span>
+                      <Rating name="read-only" value={4} readOnly />
+                  </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className='item productItem'>
+                  <div className='imgWrapper'>
+                    <img src='https://upload.wikimedia.org/wikipedia/vi/c/c7/Naruto_Volume_1_manga_cover.jpg'
+                      alt='Product 1' className='w-100' />
+
+                      <h4>Naruto</h4>
+                      <span className='text-success d-block'>In Stock</span>
+                      <Rating name="read-only" value={5} readOnly />
+                  </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className='item productItem'>
+                  <div className='imgWrapper'>
+                    <img src='https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/01/Image-United.jpg'
+                      alt='Product 1' className='w-100' />
+                  </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className='item productItem'>
+                  <div className='imgWrapper'>
+                    <img src='https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/01/Image-United.jpg'
+                      alt='Product 1' className='w-100' />
+                  </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className='item productItem'>
+                  <div className='imgWrapper'>
+                    <img src='https://static1.cbrimages.com/wordpress/wp-content/uploads/2020/01/Image-United.jpg'
+                      alt='Product 1' className='w-100' />
+                  </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+      </div>      
     </div>
   );
 };

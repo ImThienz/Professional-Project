@@ -47,4 +47,15 @@
     color: red;
   }
   
-  
+  /* BEST SELLERS */
+.slick-slide{margin-right: 10px; display: flex; justify-content: center;}
+.slick-list{overflow: hidden; display: flex;}
+.text-light{color: #8b8b8b !important; }
+.text-sml{font-size: 14px; }
+.productRow .hd{font-size: 25px; font-weight: 600; }
+.viewAllBtn{padding: 5px 25px !important; background: #fff; border: 1px solid rgba(0,0,0,0.1)
+    !important; border-radius: 30px !important; color: #000 !important; font-weight: 600; 
+  text-transform: capitalize !important;}
+
+.viewAllBtn svg{font-size: 20px;}
+.imgWrapper{min-height: 300px}

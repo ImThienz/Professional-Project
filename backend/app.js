@@ -2,8 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
+
+const SECRET_KEY = process.env.SECRET_KEY ;
+console.log("Secret Key:", SECRET_KEY);
+const userRoutes = require("./routes/userRoutes");
+
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // Cấu hình CORS: Cho phép tất cả hoặc chỉ domain cụ thể
 app.use(
@@ -31,6 +38,9 @@ app.use("/api/v1/comics", comicRoutes);
 // Routes for chapters
 const chapterRoutes = require("./routes/chapterRoutes");
 app.use("/api/v1/chapters", chapterRoutes);
+
+// Routes for users
+app.use("/api/users", userRoutes);
 
 // Routes for payment
 const paymentRoutes = require("./routes/paymentRoutes");

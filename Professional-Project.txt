@@ -14,11 +14,17 @@ npm install @mui/icons-material
 npm install react-slick --save
 npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
+---------------------
+clone về nhưng lỗi npm start -> Xóa cache cài lại:
+npm cache clean --force
+rm -rf node_modules package-lock.json
+npm install
 
 -----------------------------
 	Web:
 react-icon (https://www.npmjs.com/package/react-icon)
-slick slider npm (https://www.npmjs.com/package/react-slick)
+react-slick npm (https://www.npmjs.com/package/react-slick)
+swiper slider react (https://swiperjs.com/react)
 
 -----------------------------
 	Files:
@@ -54,11 +60,13 @@ frontend/
 │   ├── assets/
 │   └── Components/
 │	│		└── Header/
+│	│		│		├── LoginSignup/
+│	│		│		│		└── index.js / .css
 │	│		│		├── Navigation/
 │	│		│		│		└── index.js
 │	│		│		├── SearchBox/
 │	│		│		│		└── index.js
-│	│		│		└── index.js
+│	│		│		└── index.js / .css
 │	│		└── HomeBanner/
 │	│				└── index.js
 │   └── Pages/
@@ -105,5 +113,11 @@ npm init -y
 
 npm install express mongoose cors
 npm start
+
+-----------------------------
+	CMD:
+npm install bcrypt
+openssl rand -base64 32
+
 ===========================================
 
