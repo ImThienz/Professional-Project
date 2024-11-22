@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import Logo from "../../Assets/logo.jpg";
 import { Link } from "react-router-dom"; // Import Link
-import { FaUserCircle, FaHeart } from "react-icons/fa"; 
+import { FaUserCircle, FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
-import './Header.css';
+import "./Header.css";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -20,14 +20,15 @@ const Header = () => {
     if (storedUsername) setUsername(storedUsername);
   }, []);
 
-
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     if (!isFavorite) {
-      favorites.push('comicIdExample'); // Giả sử bạn đang dùng ID của comic
+      favorites.push("comicIdExample"); // Giả sử bạn đang dùng ID của comic
     } else {
-      const updatedFavorites = favorites.filter(id => id !== 'comicIdExample');
+      const updatedFavorites = favorites.filter(
+        (id) => id !== "comicIdExample"
+      );
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
   };
@@ -43,7 +44,6 @@ const Header = () => {
     setUsername(null);
     navigate("/");
   };
-
 
   return (
     <>
@@ -70,11 +70,12 @@ const Header = () => {
               <div className="user d-flex align-items-center ml-auto">
                 {/* Link đến trang yêu thích */}
                 <Button className="circle mr-3" onClick={toggleFavorite}>
-                  <Link to="/favorites"> {/* Thêm Link đến trang yêu thích */}
+                  <Link to="/favorites">
+                    {" "}
+                    {/* Thêm Link đến trang yêu thích */}
                     <FaHeart color={isFavorite ? "red" : "gray"} size={24} />
                   </Link>
                 </Button>
-
 
                 {/* Kiểm tra trạng thái đăng nhập */}
                 {username ? (
@@ -101,11 +102,12 @@ const Header = () => {
                   </div>
                 )} */}
 
-
                 <div className="cartTab">
                   {/* <span className="price">55.000VND</span> */}
                   <Button className="cart ml-3">
-                    <FaShoppingCart />
+                    <Link to="/cart">
+                      <FaShoppingCart />
+                    </Link>
                   </Button>
                 </div>
               </div>

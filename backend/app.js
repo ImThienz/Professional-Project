@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = process.env.SECRET_KEY ;
+const SECRET_KEY = process.env.SECRET_KEY;
 console.log("Secret Key:", SECRET_KEY);
 const userRoutes = require("./routes/userRoutes");
 
@@ -45,6 +45,9 @@ app.use("/api/users", userRoutes);
 // Routes for payment
 const paymentRoutes = require("./routes/paymentRoutes");
 app.use("/api/vnpay", paymentRoutes);
+
+const cartRoutes = require("./routes/cartRoutes");
+app.use("/api/cart", cartRoutes);
 
 // Start the server
 app.listen(PORT, () => {

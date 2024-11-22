@@ -1,100 +1,157 @@
-/* ComicDetailPage.css */
-
-/* Comic Detail Container */
 .comic-detail-container {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
 .comic-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 2.5rem;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 1rem;
 }
 
 .comic-cover {
-  width: 100%;
-  max-width: 300px;
+  display: block;
+  max-width: 400px;
   height: auto;
+  margin: 0 auto 2rem;
   border-radius: 8px;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.comic-cover:hover {
+  transform: scale(1.02);
 }
 
 .comic-details {
-  color: #555;
-  font-size: 1rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.comic-details p {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #4a5568;
   line-height: 1.6;
-  margin: 10px 0;
-  text-align: left;
+}
+
+.comic-details strong {
+  color: #2d3748;
+  font-weight: 600;
 }
 
 .comic-description {
-  font-size: 1rem;
-  margin-top: 20px;
-  color: #333;
   text-align: justify;
+  padding: 1rem;
+  background-color: #f7fafc;
+  border-left: 4px solid #3498db;
+  margin-top: 1rem;
 }
 
-/* Chapters Section */
-.chapter-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 30px;
-}
-
-.chapter-item {
-  width: 48%;
-  background-color: #f9f9f9;
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.chapter-item h3 {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.chapter-image {
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.chapter-details p {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-.chapter-item p strong {
-  color: #333;
-}
-
-/* Back Button */
 .back-button {
   display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: #fff;
+  padding: 0.8rem 1.5rem;
+  background-color: #3498db;
+  color: white;
   text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
+  border-radius: 6px;
   transition: background-color 0.3s ease;
+  margin-right: 1rem;
 }
 
 .back-button:hover {
-  background-color: #555;
+  background-color: #2980b9;
+}
+
+button {
+  padding: 0.8rem 1.5rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #c0392b;
+}
+
+/* Chapter List Styles */
+.chapter-list {
+  margin-top: 2rem;
+}
+
+.chapter-item {
+  display: flex;
+  align-items: start;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.chapter-item:hover {
+  transform: translateY(-2px);
+}
+
+.chapter-image {
+  width: 200px;
+  height: auto;
+  border-radius: 4px;
+  margin-right: 1.5rem;
+}
+
+.chapter-details {
+  flex: 1;
+}
+
+.chapter-details h3 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.chapter-details p {
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .comic-detail-container {
+    padding: 1rem;
+  }
+
+  .comic-title {
+    font-size: 2rem;
+  }
+
+  .comic-cover {
+    max-width: 100%;
+  }
+
+  .chapter-item {
+    flex-direction: column;
+  }
+
+  .chapter-image {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 }

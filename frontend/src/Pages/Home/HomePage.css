@@ -1,61 +1,86 @@
 /* Định dạng chung cho trang */
 .comic-list-container {
-    overflow-x: auto; /* Bật cuộn ngang */
-    white-space: nowrap; /* Bảo đảm các phần tử nằm ngang */
-    padding: 20px;
+  overflow-x: auto; /* Bật cuộn ngang */
+  white-space: nowrap; /* Bảo đảm các phần tử nằm ngang */
+  padding: 20px;
 }
 
 .comic-list {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .comic-item {
-    flex: 0 0 auto; /* Đảm bảo các phần tử không co lại */
-    width: 200px;
-    text-align: center;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  flex: 0 0 auto; /* Đảm bảo các phần tử không co lại */
+  width: 200px;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .comic-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
+  width: 100%;
+  height: 200px; /* Hoặc thay đổi chiều cao sao cho phù hợp */
+  object-fit: contain; /* Đảm bảo hình ảnh vừa vặn mà không bị cắt */
+  border-radius: 8px;
 }
 
 .comic-title {
-    font-size: 20px !important;
-    margin: 10px 0 5px;
+  font-size: 20px !important;
+  margin: 10px 0 5px;
 }
 
 .comic-description {
-    font-size: 0.9em;
-    color: #666;
+  font-size: 0.9em;
+  color: #666;
 }
-  
-.favorite-icon {
-    font-size: 24px;
-    cursor: pointer;
-    color: gray;
-    transition: color 0.3s ease;
-  }
-  
-  .favorite-icon.active {
-    color: red;
-  }
-  
-  /* BEST SELLERS */
-.slick-slide{margin-right: 10px; display: flex; justify-content: center;}
-.slick-list{overflow: hidden; display: flex;}
-.text-light{color: #8b8b8b !important; }
-.text-sml{font-size: 14px; }
-.productRow .hd{font-size: 25px; font-weight: 600; }
-.viewAllBtn{padding: 5px 25px !important; background: #fff; border: 1px solid rgba(0,0,0,0.1)
-    !important; border-radius: 30px !important; color: #000 !important; font-weight: 600; 
-  text-transform: capitalize !important;}
 
-.viewAllBtn svg{font-size: 20px;}
-.imgWrapper{min-height: 300px}
+.favorite-icon {
+  font-size: 24px;
+  cursor: pointer;
+  color: gray;
+  transition: color 0.3s ease;
+}
+
+.favorite-icon.active {
+  color: red;
+}
+
+/* BEST SELLERS */
+.slick-slide {
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+}
+.slick-list {
+  overflow: hidden;
+  display: flex;
+}
+.text-light {
+  color: #8b8b8b !important;
+}
+.text-sml {
+  font-size: 14px;
+}
+.productRow .hd {
+  font-size: 25px;
+  font-weight: 600;
+}
+.viewAllBtn {
+  padding: 5px 25px !important;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 30px !important;
+  color: #000 !important;
+  font-weight: 600;
+  text-transform: capitalize !important;
+}
+
+.viewAllBtn svg {
+  font-size: 20px;
+}
+.imgWrapper {
+  min-height: 300px;
+}

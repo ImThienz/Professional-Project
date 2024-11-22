@@ -31,14 +31,17 @@ router.get("/byComic/:comicId", async (req, res) => {
   try {
     const chapters = await Chapter.find({ comic_id: req.params.comicId });
     if (chapters.length === 0) {
-      return res.status(404).json({ message: "No chapters available for this comic." });
+      return res
+        .status(404)
+        .json({ message: "No chapters available for this comic." });
     }
     res.status(200).json(chapters);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching chapters: " + error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching chapters: " + error.message });
   }
 });
-
 
 // Thêm comic mới
 router.post("/add", async (req, res) => {
@@ -55,7 +58,8 @@ router.post("/add", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const deletedComic = await Comic.findByIdAndDelete(req.params.id);
-    if (!deletedComic) return res.status(404).json({ message: "Comic not found" });
+    if (!deletedComic)
+      return res.status(404).json({ message: "Comic not found" });
     res.json({ message: "Comic deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -65,8 +69,13 @@ router.delete("/:id", async (req, res) => {
 // Sửa comic
 router.put("/:id", async (req, res) => {
   try {
-    const updatedComic = await Comic.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedComic) return res.status(404).json({ message: "Comic not found" });
+    const updatedComic = await Comic.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    if (!updatedComic)
+      return res.status(404).json({ message: "Comic not found" });
     res.json(updatedComic);
   } catch (error) {
     res.status(500).json({ message: error.message });

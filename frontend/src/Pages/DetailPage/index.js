@@ -2,66 +2,32 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./DetailPage.css";
-
 const ComicDetailPage = () => {
   const { id } = useParams();
   const [comic, setComic] = useState(null);
-  const [chapters, setChapters] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(`Comic ID: ${id}`);
-
-    // Fetch comic details
-    axios
-      .get(`http://localhost:8080/api/v1/comics/${id}`)
-      .then((response) => {
-        setComic(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching comic details:", error);
-      });
-
-    // Fetch chapters related to this comic
-    axios
-      .get(`http://localhost:8080/api/v1/chapters/byComic/${id}`)
-      .then((response) => {
-        setChapters(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching chapters:", error);
-        setLoading(false);
-      });
+    axios.get(`http://localhost:8080/api/v1/comics/${id}`).then((response) => {
+      setComic(response.data);
+    });
   }, [id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!comic) {
-    return <div>Không tìm thấy mẫu truyện nào!</div>;
-  }
-
-  const handlePayment = async () => {
-    const response = await fetch(
-      "http://localhost:8080/api/vnpay/create-payment-url",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: 1000000, // Số tiền thanh toán
-          orderId: Date.now(), // Mã đơn hàng
-          orderInfo: "Thanh toán đơn hàng",
-        }),
-      }
-    );
-
-    const { paymentUrl } = await response.json();
-    if (paymentUrl) {
-      window.location.href = paymentUrl; // Redirect đến VNPay
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.post(
+        "http://localhost:8080/api/cart",
+        { productId: id, quantity: 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Thêm vào giỏ hàng thành công!");
+    } catch (error) {
+      console.error(error);
+      alert("Không thể thêm vào giỏ hàng!");
     }
   };
+
+  if (!comic) return <div>Loading...</div>;
 
   return (
     <div className="comic-detail-container">
@@ -102,7 +68,7 @@ const ComicDetailPage = () => {
       <Link to="/" className="back-button">
         Quay về Danh sách Truyện tranh
       </Link>
-      <button onClick={handlePayment}>Thanh toán với VNPAY</button>
+      <button onClick={handleAddToCart}>Thêm vào giỏ hàng</button>
     </div>
   );
 };

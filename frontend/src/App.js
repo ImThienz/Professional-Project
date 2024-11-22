@@ -8,7 +8,7 @@ import Favorites from "./Pages/Favorites";
 import Purchase from "./Pages/Purchase";
 import { useState } from "react";
 import LoginSignup from "./Components/Header/LoginSignup";
-
+import CartPage from "./Pages/CartPage";
 // import CategoryPage from './Pages/CategoryPage';
 
 function App() {
@@ -24,8 +24,9 @@ function App() {
         <Route path="/comics/:id" element={<ComicDetailPage />} />
         <Route path="/purchase" element={<Purchase />}></Route>
 
-        <Route path="/login" element={<LoginSignup/>} />
-        <Route path="/signup" element={<LoginSignup/>} />
+        <Route path="/login" element={<LoginSignup />} />
+        <Route path="/signup" element={<LoginSignup />} />
+        <Route path="/cart" element={<CartPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
