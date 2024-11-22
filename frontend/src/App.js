@@ -10,6 +10,8 @@ import { useState } from "react";
 import LoginSignup from "./Components/Header/LoginSignup";
 import CartPage from "./Pages/CartPage";
 // import CategoryPage from './Pages/CategoryPage';
+import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import AdminLogin from "./Pages/Admin/AdminLogin";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/signup" element={<LoginSignup />} />
         <Route path="/cart" element={<CartPage />}></Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   );

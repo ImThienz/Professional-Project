@@ -49,6 +49,12 @@ app.use("/api/vnpay", paymentRoutes);
 const cartRoutes = require("./routes/cartRoutes");
 app.use("/api/cart", cartRoutes);
 
+const adminController = require("./controllers/adminControl");
+const adminRoutes = require("./routes/adminRoutes");
+
+app.post("/api/admin/login", adminController.loginAdmin);
+app.use("/api/admin", adminRoutes);
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
