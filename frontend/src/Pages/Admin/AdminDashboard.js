@@ -46,7 +46,7 @@ const AdminDashboard = () => {
           onClick={handleSubmit}
           className="bg-red-500 text-white px-4 py-2 rounded"
         >
-          Chỉnh sửa truyện
+          Chỉnh sửa truyện tranh
         </button>
       </div>
 
