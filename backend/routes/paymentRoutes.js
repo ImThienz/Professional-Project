@@ -1,14 +1,21 @@
-// routes/vnpayRoutes.js
 const express = require("express");
 const crypto = require("crypto");
-
+require("dotenv").config();
 const router = express.Router();
 
-// Cấu hình VNPay
-const vnp_TmnCode = "KSPMY8G5";
-const vnp_HashSecret = "2E7R0S56W12NSGR4TZW26IBRN1UN1I5B";
-const vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-const vnp_ReturnUrl = "http://localhost:3000/purchase";
+// Cấu hình VNPay từ environment variables
+const vnp_TmnCode = process.env.VNP_TMN_CODE;
+const vnp_HashSecret = process.env.VNP_HASH_SECRET;
+const vnp_Url = process.env.VNP_URL;
+const vnp_ReturnUrl = process.env.VNP_RETURN_URL;
+
+// Kiểm tra xem các biến môi trường có tồn tại không
+if (!vnp_TmnCode || !vnp_HashSecret || !vnp_Url || !vnp_ReturnUrl) {
+  console.error(
+    "Missing required VNPay configuration in environment variables"
+  );
+  process.exit(1);
+}
 
 // Tạo URL thanh toán
 router.post("/create-payment-url", (req, res) => {
@@ -32,7 +39,6 @@ router.post("/create-payment-url", (req, res) => {
     vnp_Locale: "vn",
   };
 
-  // Sắp xếp và tạo hash
   const sortedParams = Object.keys(vnp_Params)
     .sort()
     .reduce((acc, key) => {
@@ -50,36 +56,285 @@ router.post("/create-payment-url", (req, res) => {
   res.json({ paymentUrl });
 });
 
+// Hàm format số tiền
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(amount);
+};
+
 // Xử lý kết quả thanh toán
 router.get("/vnpay_return", (req, res) => {
-  const vnp_Params = req.query;
+  try {
+    const vnp_Params = req.query;
+    console.log("VNPay Return Params:", vnp_Params);
 
-  const secureHash = vnp_Params["vnp_SecureHash"];
-  delete vnp_Params["vnp_SecureHash"];
-  delete vnp_Params["vnp_SecureHashType"];
+    const secureHash = vnp_Params["vnp_SecureHash"];
+    delete vnp_Params["vnp_SecureHash"];
+    delete vnp_Params["vnp_SecureHashType"];
 
-  const sortedParams = Object.keys(vnp_Params)
-    .sort()
-    .reduce((acc, key) => {
-      acc[key] = vnp_Params[key];
-      return acc;
-    }, {});
+    const sortedParams = Object.keys(vnp_Params)
+      .sort()
+      .reduce((acc, key) => {
+        acc[key] = vnp_Params[key];
+        return acc;
+      }, {});
 
-  const signData = new URLSearchParams(sortedParams).toString();
-  const checkHash = crypto
-    .createHmac("sha512", vnp_HashSecret)
-    .update(signData)
-    .digest("hex");
+    const signData = new URLSearchParams(sortedParams).toString();
+    const checkHash = crypto
+      .createHmac("sha512", vnp_HashSecret)
+      .update(signData)
+      .digest("hex");
 
-  if (checkHash === secureHash) {
-    const transactionStatus = vnp_Params["vnp_TransactionStatus"];
-    if (transactionStatus === "00") {
-      res.send("Thanh toán thành công!");
+    if (checkHash === secureHash) {
+      const transactionStatus = vnp_Params["vnp_TransactionStatus"];
+
+      const paymentInfo = {
+        orderId: vnp_Params["vnp_TxnRef"],
+        amount: formatCurrency(parseInt(vnp_Params["vnp_Amount"]) / 100),
+        orderInfo: vnp_Params["vnp_OrderInfo"],
+        transactionNo: vnp_Params["vnp_TransactionNo"],
+        bankCode: vnp_Params["vnp_BankCode"],
+        payDate: new Date(
+          vnp_Params["vnp_PayDate"].substring(0, 4),
+          vnp_Params["vnp_PayDate"].substring(4, 6) - 1,
+          vnp_Params["vnp_PayDate"].substring(6, 8),
+          vnp_Params["vnp_PayDate"].substring(8, 10),
+          vnp_Params["vnp_PayDate"].substring(10, 12),
+          vnp_Params["vnp_PayDate"].substring(12, 14)
+        ).toLocaleString("vi-VN"),
+      };
+
+      if (transactionStatus === "00") {
+        // Thanh toán thành công
+        res.send(`
+          <html>
+            <head>
+              <title>Kết quả thanh toán</title>
+              <meta charset="utf-8">
+              <style>
+                body { 
+                  font-family: Arial, sans-serif; 
+                  line-height: 1.6; 
+                  margin: 20px; 
+                }
+                .container { 
+                  max-width: 600px; 
+                  margin: 0 auto; 
+                  padding: 20px; 
+                  border: 1px solid #ddd; 
+                  border-radius: 5px; 
+                }
+                .success { 
+                  color: #28a745; 
+                }
+                .detail-row { 
+                  margin: 10px 0; 
+                }
+                .label { 
+                  font-weight: bold; 
+                }
+                .home-button {
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background-color: #007bff;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 5px;
+                  margin-top: 20px;
+                  text-align: center;
+                }
+                .home-button:hover {
+                  background-color: #0056b3;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <h2 class="success">Thanh toán thành công!</h2>
+                <div class="detail-row">
+                  <span class="label">Mã đơn hàng:</span> ${paymentInfo.orderId}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Số tiền:</span> ${paymentInfo.amount}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Nội dung thanh toán:</span> ${paymentInfo.orderInfo}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Mã giao dịch:</span> ${paymentInfo.transactionNo}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Ngân hàng:</span> ${paymentInfo.bankCode}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Thời gian thanh toán:</span> ${paymentInfo.payDate}
+                </div>
+                <a href="http://localhost:3000" class="home-button">Đi shopping tiếp</a>
+              </div>
+            </body>
+          </html>
+        `);
+      } else {
+        // Thanh toán thất bại
+        res.send(`
+          <html>
+            <head>
+              <title>Kết quả thanh toán</title>
+              <meta charset="utf-8">
+              <style>
+                body { 
+                  font-family: Arial, sans-serif; 
+                  line-height: 1.6; 
+                  margin: 20px; 
+                }
+                .container { 
+                  max-width: 600px; 
+                  margin: 0 auto; 
+                  padding: 20px; 
+                  border: 1px solid #ddd; 
+                  border-radius: 5px; 
+                }
+                .error { 
+                  color: #dc3545; 
+                }
+                .detail-row { 
+                  margin: 10px 0; 
+                }
+                .label { 
+                  font-weight: bold; 
+                }
+                .home-button {
+                  display: inline-block;
+                  padding: 10px 20px;
+                  background-color: #007bff;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 5px;
+                  margin-top: 20px;
+                  text-align: center;
+                }
+                .home-button:hover {
+                  background-color: #0056b3;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <h2 class="error">Giao dịch thất bại!</h2>
+                <div class="detail-row">
+                  <span class="label">Mã đơn hàng:</span> ${paymentInfo.orderId}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Số tiền:</span> ${paymentInfo.amount}
+                </div>
+                <div class="detail-row">
+                  <span class="label">Lý do:</span> Giao dịch không thành công
+                </div>
+                <div class="detail-row">
+                  <span class="label">Thời gian:</span> ${paymentInfo.payDate}
+                </div>
+                <a href="http://localhost:3000" class="home-button">Thử thanh toán lại lần nữa</a>
+              </div>
+            </body>
+          </html>
+        `);
+      }
     } else {
-      res.send("Thanh toán không thành công!");
+      res.send(`
+        <html>
+          <head>
+            <title>Kết quả thanh toán</title>
+            <meta charset="utf-8">
+            <style>
+              body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                margin: 20px; 
+              }
+              .container { 
+                max-width: 600px; 
+                margin: 0 auto; 
+                padding: 20px; 
+                border: 1px solid #ddd; 
+                border-radius: 5px; 
+              }
+              .error { 
+                color: #dc3545; 
+              }
+              .home-button {
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                margin-top: 20px;
+                text-align: center;
+              }
+              .home-button:hover {
+                background-color: #0056b3;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h2 class="error">Lỗi giao dịch!</h2>
+              <p>Chữ ký không hợp lệ!</p>
+              <a href="/" class="home-button">Quay về trang chủ</a>
+            </div>
+          </body>
+        </html>
+      `);
     }
-  } else {
-    res.send("Chữ ký không hợp lệ!");
+  } catch (error) {
+    console.error("Error processing VNPay return:", error);
+    res.status(500).send(`
+      <html>
+        <head>
+          <title>Lỗi</title>
+          <meta charset="utf-8">
+          <style>
+            body { 
+              font-family: Arial, sans-serif; 
+              line-height: 1.6; 
+              margin: 20px; 
+            }
+            .container { 
+              max-width: 600px; 
+              margin: 0 auto; 
+              padding: 20px; 
+              border: 1px solid #ddd; 
+              border-radius: 5px; 
+            }
+            .error { 
+              color: #dc3545; 
+            }
+            .home-button {
+              display: inline-block;
+              padding: 10px 20px;
+              background-color: #007bff;
+              color: white;
+              text-decoration: none;
+              border-radius: 5px;
+              margin-top: 20px;
+              text-align: center;
+            }
+            .home-button:hover {
+              background-color: #0056b3;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h2 class="error">Có lỗi xảy ra!</h2>
+            <p>Có lỗi xảy ra khi xử lý kết quả thanh toán</p>
+            <a href="/" class="home-button">Quay về trang chủ</a>
+          </div>
+        </body>
+      </html>
+    `);
   }
 });
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
@@ -54,6 +55,11 @@ const adminRoutes = require("./routes/adminRoutes");
 
 app.post("/api/admin/login", adminController.loginAdmin);
 app.use("/api/admin", adminRoutes);
+
+const adminComicRoutes = require("./routes/adminComicRoutes");
+app.use("/api/v1/admin", adminComicRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// Thêm route admin comics
 
 // Start the server
 app.listen(PORT, () => {

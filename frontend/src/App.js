@@ -12,6 +12,8 @@ import CartPage from "./Pages/CartPage";
 // import CategoryPage from './Pages/CategoryPage';
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminLogin from "./Pages/Admin/AdminLogin";
+import ComicAdmin from "./Pages/Admin/ManageComics";
+import ManageComics from "./Pages/Admin/ManageComics";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/comics" element={<ComicAdmin />} />
+        <Route path="/admin/manageComics" element={<ManageComics />} />
       </Routes>
     </BrowserRouter>
   );

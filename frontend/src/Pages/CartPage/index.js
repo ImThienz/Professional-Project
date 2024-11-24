@@ -154,10 +154,17 @@ const CartPage = () => {
           <li key={item.productId._id} className="cart-item">
             <div className="cart-item-details">
               <img
-                src={item.productId.cover_image}
+                src={`http://localhost:8080${item.productId.cover_image}`}
                 alt={item.productId.title}
                 className="cart-item-image"
+                onError={() =>
+                  console.log(
+                    "Image failed to load:",
+                    item.productId.cover_image
+                  )
+                }
               />
+
               <div className="cart-item-info">
                 <h2>{item.productId.title}</h2>
                 <p>Giá: {formatPrice(item.productId.price)} VND</p>
