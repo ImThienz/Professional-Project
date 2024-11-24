@@ -1,0 +1,30 @@
+.search-box .form-control {
+    border-radius: 0.375rem;
+  }
+  
+  .search-box .btn {
+    border-radius: 0.375rem;
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 400px; 
+    z-index: 10;
+    max-height: 300px;
+    overflow-y: auto; 
+  }
+  
+  .search-results .list-group-item {
+    transition: background-color 0.2s;
+  }
+  
+  .search-results .list-group-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .no-results {
+    font-size: 0.9rem;
+  }
+  

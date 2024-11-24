@@ -12,6 +12,34 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
+// Tìm kiếm truyện
+router.get('/search', async (req, res) => {
+  try {
+    const { title } = req.query; // Lấy từ khóa tìm kiếm từ query
+    const comics = await Comic.find({
+      title: { $regex: title, $options: 'i' } // Tìm kiếm gần đúng, không phân biệt hoa thường
+    });
+    res.status(200).json(comics);
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server', error });
+  }
+});
+
+router.get('/search', async (req, res) => {
+  try {
+    const { title } = req.query;
+    if (!title) {
+      return res.status(400).json({ message: 'Vui lòng cung cấp từ khóa tìm kiếm' });
+    }
+    const comics = await Comic.find({
+      title: { $regex: title, $options: 'i' }
+    });
+    res.status(200).json(comics);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // API để lấy chi tiết comic theo ID
 router.get("/:id", async (req, res) => {
   try {

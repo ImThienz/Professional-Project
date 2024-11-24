@@ -23,8 +23,8 @@ function App() {
       <Routes>
         {/* <HomeBanner /> */}
         <Route path="/" element={<Home />} />
-        {/* <Route path="/category/:categoryId" element={<CategoryPage />} /> */}
         <Route path="/favorites" element={<Favorites />} />
+        {/* <Route path="/category/:categoryId" element={<CategoryPage />} /> */}
         <Route path="/comics/:id" element={<ComicDetailPage />} />
         <Route path="/purchase" element={<Purchase />}></Route>
 

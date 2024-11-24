@@ -35,6 +35,7 @@ mongoose
 // Routes for comics
 const comicRoutes = require("./routes/comicRoutes");
 app.use("/api/v1/comics", comicRoutes);
+app.use('/api/comics', comicRoutes);
 
 // Routes for chapters
 const chapterRoutes = require("./routes/chapterRoutes");
