@@ -70,6 +70,8 @@ frontend/
 │	│		└── HomeBanner/
 │	│				└── index.js
 │   └── Pages/
+│	│		├── Category/
+│	│		│		└── index.js
 │	│		├── Favorites/
 │	│		│		└── index.js
 │	│		├── Home/
@@ -89,7 +91,15 @@ npm install react-router-dom
 -----------------------------
 
 backend/
+├── config/
+│   └── default.json
+├── controllers/
+│   └── adminControl.js
+├── middlewares/
+│   ├── authMiddleware.js
+│   └── checkAdminRole.js
 ├── models/
+│   ├── Cart.js
 │   ├── Category.js
 │   ├── Chapter.js
 │   ├── Comic.js
@@ -98,11 +108,17 @@ backend/
 ├── node_modules/
 │   └── ...
 ├── routes/
+│   ├── adminComicRoutes.js
+│   ├── adminRoutes.js
+│   ├── cartRoutes.js
 │   ├── categoryRoutes.js
 │   ├── chapterRoutes.js
 │   ├── comicRoutes.js
+│   ├── paymentRoutes.js
 │   ├── ratingRoutes.js
 │   └── userRoutes.js
+├── uploads/
+│   └── ...
 ├── app.js
 ├── package-lock.json
 └── package.json
