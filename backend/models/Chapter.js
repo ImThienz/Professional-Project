@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const chapterSchema = new mongoose.Schema({
   comic_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Comic", // Liên kết với Comic model
+    ref: "Comic",
     required: true,
   },
   chapter_number: {
@@ -14,19 +14,21 @@ const chapterSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  release_date: {
-    type: Date,
-    required: true,
-  },
-  page_count: {
-    type: Number,
-    required: true,
-  },
-  url: {
+  content: {
     type: String,
-    required: true, // URL của hình ảnh bìa chapter
+  },
+  images: {
+    type: [String], // Mảng URL hình ảnh
+    default: [],
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 
-const Chapter = mongoose.model("Chapter", chapterSchema);
-module.exports = Chapter;
+module.exports = mongoose.model("Chapter", chapterSchema);

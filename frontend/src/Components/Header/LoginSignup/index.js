@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import './LoginSignup.css';
+import "./LoginSignup.css";
 
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -33,6 +33,7 @@ const LoginSignup = () => {
         localStorage.setItem("token", data.token); // Lưu token
         localStorage.setItem("username", data.username); // Lưu username
         navigate("/"); // Chuyển về trang chủ
+        window.location.reload();
       } else {
         alert(data.message);
       }

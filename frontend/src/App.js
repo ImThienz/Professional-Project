@@ -14,7 +14,8 @@ import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminLogin from "./Pages/Admin/AdminLogin";
 import ComicAdmin from "./Pages/Admin/ManageComics";
 import ManageComics from "./Pages/Admin/ManageComics";
-
+import ComicList from "./Pages/Chapter/ComicList";
+import ChaptersPage from "./Pages/Chapter/ChaptersPage";
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +36,9 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/comics" element={<ComicAdmin />} />
         <Route path="/admin/manageComics" element={<ManageComics />} />
+        {/* Route hiển thị danh sách ảnh trong chapter */}
+        <Route path="/truyen" element={<ComicList />} />
+        <Route path="/comics/:id/chapters" element={<ChaptersPage />} />
       </Routes>
     </BrowserRouter>
   );

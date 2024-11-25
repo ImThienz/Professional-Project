@@ -1,0 +1,89 @@
+.chapters-page-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.chapter-item {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chapter-title {
+  font-size: 28px; /* Tăng kích thước tiêu đề */
+  font-weight: bold;
+  color: #333;
+  text-align: center; /* Căn giữa tiêu đề */
+  margin-bottom: 10px;
+  text-transform: capitalize; /* Viết hoa chữ cái đầu */
+  letter-spacing: 0.5px; /* Thêm khoảng cách giữa các ký tự */
+}
+
+.chapter-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify; /* Căn đều nội dung */
+  margin: 15px 0; /* Tạo khoảng cách giữa nội dung và hình ảnh */
+  padding: 10px 15px;
+  background-color: #f9f9f9; /* Nền nhạt để nổi bật */
+  border-radius: 8px; /* Bo góc nhẹ */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+}
+
+.chapter-dropdown-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.chapter-dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  outline: none;
+  width: 200px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.chapter-dropdown:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5);
+}
+
+.chapter-images-container {
+  display: flex;
+  flex-direction: column; /* Xếp hình ảnh theo chiều dọc */
+  gap: 15px; /* Khoảng cách giữa các hình ảnh */
+  width: 100%;
+  margin-top: 20px;
+}
+
+.chapter-image {
+  width: 100%;
+  max-width: 1200px; /* Giữ max-width lớn hơn để hình ảnh lớn hơn */
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px; /* Bo góc */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  transition: transform 0.3s ease; /* Thêm hiệu ứng phóng to khi hover */
+}
+
+.chapter-image:hover {
+  transform: scale(1.05); /* Phóng to nhẹ khi hover */
+}
+
+@media screen and (max-width: 768px) {
+  .chapter-image {
+    max-width: 100%; /* Với màn hình nhỏ, hình ảnh chiếm toàn bộ chiều rộng */
+  }
+}

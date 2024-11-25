@@ -1,5 +1,6 @@
 const express = require("express");
 const Comic = require("../models/Comic");
+const Chapter = require("../models/Chapter"); // Thêm nếu cần sử dụng Chapter model
 const router = express.Router();
 
 // API để lấy tất cả comics
@@ -12,31 +13,21 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
-// Route tìm kiếm truyện
-router.get('/search', async (req, res) => {
+// Route tìm kiếm truyện theo tiêu đề
+router.get("/search", async (req, res) => {
   try {
     const { title } = req.query; // Lấy từ khóa tìm kiếm từ query
-    const comics = await Comic.find({
-      title: { $regex: title, $options: 'i' } // Tìm kiếm gần đúng, không phân biệt hoa thường
-    });
-    res.status(200).json(comics);
-  } catch (error) {
-    res.status(500).json({ message: 'Lỗi server', error });
-  }
-});
-
-router.get('/search', async (req, res) => {
-  try {
-    const { title } = req.query;
     if (!title) {
-      return res.status(400).json({ message: 'Vui lòng cung cấp từ khóa tìm kiếm' });
+      return res
+        .status(400)
+        .json({ message: "Vui lòng cung cấp từ khóa tìm kiếm" });
     }
     const comics = await Comic.find({
-      title: { $regex: title, $options: 'i' }
+      title: { $regex: title, $options: "i" }, // Tìm kiếm gần đúng, không phân biệt hoa thường
     });
     res.status(200).json(comics);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Lỗi server", error: error.message });
   }
 });
 
@@ -74,7 +65,30 @@ router.get("/byComic/:comicId", async (req, res) => {
 // Thêm comic mới
 router.post("/add", async (req, res) => {
   try {
-    const newComic = new Comic(req.body);
+    const {
+      title,
+      author,
+      genre,
+      description,
+      price,
+      cover_image,
+      category_id,
+    } = req.body;
+
+    // Kiểm tra dữ liệu đầu vào
+    if (!title || !author) {
+      return res.status(400).json({ message: "Title and Author are required" });
+    }
+
+    const newComic = new Comic({
+      title,
+      author,
+      genre,
+      description,
+      price,
+      cover_image,
+      category_id,
+    });
     const savedComic = await newComic.save();
     res.status(201).json(savedComic);
   } catch (error) {

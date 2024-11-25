@@ -131,6 +131,20 @@ button:hover {
   color: #4a5568;
 }
 
+.view-chapters-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.view-chapters-button:hover {
+  background-color: #0056b3;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .comic-detail-container {

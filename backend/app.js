@@ -35,11 +35,7 @@ mongoose
 // Routes for comics
 const comicRoutes = require("./routes/comicRoutes");
 app.use("/api/v1/comics", comicRoutes);
-app.use('/api/comics', comicRoutes);
-
-// Routes for chapters
-const chapterRoutes = require("./routes/chapterRoutes");
-app.use("/api/v1/chapters", chapterRoutes);
+app.use("/api/comics", comicRoutes);
 
 // Routes for users
 app.use("/api/users", userRoutes);
@@ -62,6 +58,12 @@ app.use("/api/v1/admin", adminComicRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Thêm route admin comics
 
+//thêm route hiển thị chap truyện
+const chapterRoutes = require("./routes/chapterRoutes");
+app.use("/api/chapters", chapterRoutes);
+
+// up ảnh chapter
+app.use("/api", require("./routes/comicRoutes"));
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
