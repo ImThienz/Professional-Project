@@ -12,7 +12,7 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
-// Tìm kiếm truyện
+// Route tìm kiếm truyện
 router.get('/search', async (req, res) => {
   try {
     const { title } = req.query; // Lấy từ khóa tìm kiếm từ query
