@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./ChaptersPage.css";
 
 const ChaptersPage = () => {
@@ -8,6 +9,7 @@ const ChaptersPage = () => {
   const [selectedChapter, setSelectedChapter] = useState(null); // Chapter được chọn
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchChapters = async () => {
@@ -35,6 +37,28 @@ const ChaptersPage = () => {
     const chapterNumber = Number(e.target.value);
     const chapter = chapters.find((ch) => ch.chapter_number === chapterNumber);
     setSelectedChapter(chapter);
+  };
+
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Bạn cần đăng nhập để thêm vào giỏ hàng!");
+        navigate("/login");
+        return;
+      }
+
+      await axios.post(
+        "http://localhost:8080/api/cart",
+        { productId: id, quantity: 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Thêm vào giỏ hàng thành công!");
+      navigate("/cart"); // Điều hướng đến trang giỏ hàng
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Không thể thêm vào giỏ hàng!");
+    }
   };
 
   if (loading) return <p>Loading chapters...</p>;
@@ -80,6 +104,18 @@ const ChaptersPage = () => {
           </div>
         </div>
       )}
+      <p className="fs-4 fw-semibold text-primary text-center">
+        Thích chứ? Thích thì thêm vào giỏ hàng ngay đi, để dev-lỏ kiếm chút cháo nào :3
+      </p>
+
+      {/* Nút "Thêm vào giỏ hàng" */}
+      <button
+        onClick={handleAddToCart}
+        className="btn btn-primary add-to-cart-button"
+      >
+        Thêm vào giỏ hàng
+      </button>
+
     </div>
   );
 };
