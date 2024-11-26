@@ -17,7 +17,11 @@ const Header = () => {
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
-    if (storedUsername) setUsername(storedUsername);
+    if (storedUsername) {
+      setUsername(storedUsername);
+    } else {
+      setUsername(null); // Xử lý khi không có username
+    }
   }, []);
 
   const toggleFavorite = () => {
@@ -93,17 +97,7 @@ const Header = () => {
                   </Button>
                 )}
 
-                {/* Menu thả xuống cho Đăng nhập / Đăng ký */}
-                {/* {!username && showDropdown && (
-                  <div className={`dropdown-menu ${showDropdown ? "show" : ""}`}>
-                    <Link to="/login" className="dropdown-item">
-                      Đăng nhập
-                    </Link>
-                  </div>
-                )} */}
-
                 <div className="cartTab">
-                  {/* <span className="price">55.000VND</span> */}
                   <Button className="cart ml-3">
                     <Link to="/cart">
                       <FaShoppingCart />

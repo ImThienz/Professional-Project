@@ -73,7 +73,12 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.status(200).json({ message: "Đăng nhập thành công", token });
+    // Trả về token và username
+    res.status(200).json({ 
+      message: "Đăng nhập thành công", 
+      token, 
+      username: user.username 
+    });
   } catch (error) {
     res.status(500).json({ message: "Lỗi server", error });
   }
