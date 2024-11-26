@@ -42,7 +42,7 @@ const SearchBox = () => {
         </button>
       </div>
 
-      {results.length > 1 && (
+      {results.length > 0 && (
         <div className="search-results bg-light shadow mt-2 rounded">
           <ul className="list-group">
             {results.map((comic) => (
@@ -53,12 +53,19 @@ const SearchBox = () => {
                 style={{ cursor: 'pointer' }}
               >
                 <img
-                  src={comic.cover_image}
+                  src={comic.cover_image || 'http://localhost:8080/uploads/default.jpg'}
                   alt={comic.title}
                   className="me-3 rounded"
-                  style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    objectFit: 'cover',
+                    border: '1px solid #ddd',
+                  }}
                 />
-                <span>{comic.title}</span>
+                <span className="text-truncate" style={{ maxWidth: '300px' }}>
+                  {comic.title}
+                </span>
               </li>
             ))}
           </ul>

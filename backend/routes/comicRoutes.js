@@ -14,20 +14,26 @@ router.get("/getAll", async (req, res) => {
 });
 
 // Route tìm kiếm truyện theo tiêu đề
-router.get("/search", async (req, res) => {
+router.get('/search', async (req, res) => {
   try {
-    const { title } = req.query; // Lấy từ khóa tìm kiếm từ query
-    if (!title) {
-      return res
-        .status(400)
-        .json({ message: "Vui lòng cung cấp từ khóa tìm kiếm" });
-    }
+    const { title } = req.query;
+
+    // Tìm kiếm truyện dựa trên tiêu đề
     const comics = await Comic.find({
-      title: { $regex: title, $options: "i" }, // Tìm kiếm gần đúng, không phân biệt hoa thường
+      title: { $regex: title, $options: 'i' }
     });
-    res.status(200).json(comics);
+
+    // Chỉnh sửa URL hình ảnh trước khi trả về
+    const formattedComics = comics.map((comic) => ({
+      ...comic._doc,
+      cover_image: comic.cover_image
+        ? `http://localhost:8080${comic.cover_image}` // Thêm tiền tố đầy đủ
+        : 'http://localhost:8080/uploads/default.jpg', // Ảnh mặc định nếu không có
+    }));
+
+    res.status(200).json(formattedComics);
   } catch (error) {
-    res.status(500).json({ message: "Lỗi server", error: error.message });
+    res.status(500).json({ message: 'Lỗi server', error });
   }
 });
 

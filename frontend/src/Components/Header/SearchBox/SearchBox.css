@@ -1,30 +1,58 @@
+/* CSS cho thanh tìm kiếm */
 .search-box .form-control {
-    border-radius: 0.375rem;
-  }
-  
-  .search-box .btn {
-    border-radius: 0.375rem;
-  }
-  
-  .search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 400px; 
-    z-index: 10;
-    max-height: 300px;
-    overflow-y: auto; 
-  }
-  
-  .search-results .list-group-item {
-    transition: background-color 0.2s;
-  }
-  
-  .search-results .list-group-item:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .no-results {
-    font-size: 0.9rem;
-  }
-  
+  border-radius: 0.375rem;
+}
+
+.search-box .btn {
+  border-radius: 0.375rem;
+}
+
+/* CSS cho danh sách kết quả */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 400px; /* Độ rộng khớp với input */
+  z-index: 1000;
+  max-height: 300px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Thêm thanh cuộn nếu danh sách quá dài */
+}
+
+.search-results .list-group {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-results .list-group-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa hình ảnh và nội dung */
+  padding: 10px;
+  transition: background-color 0.2s;
+  overflow: hidden;
+}
+
+.search-results .list-group-item:hover {
+  background-color: #f0f0f0;
+}
+
+.search-results img {
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.search-results span {
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.no-results {
+  font-size: 14px;
+  color: red;
+  margin-top: 5px;
+}
