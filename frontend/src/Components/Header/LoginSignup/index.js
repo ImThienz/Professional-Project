@@ -30,13 +30,16 @@ const LoginSignup = () => {
 
       if (response.ok) {
         alert(isLogin ? "Đăng nhập thành công!" : "Đăng ký thành công!");
-  
-        // Lưu token và username vào localStorage
-        localStorage.setItem("token", data.token); 
+
+        // Lưu token, user_id và username vào localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user_id", data.user_id); // Lưu user_id
         if (data.username) {
           localStorage.setItem("username", data.username); // Lưu username nếu có
         }
-  
+
+        console.log("Lưu user_id vào localStorage:", data.user_id);
+
         // Điều hướng về trang chủ và reload
         navigate("/");
         window.location.reload();

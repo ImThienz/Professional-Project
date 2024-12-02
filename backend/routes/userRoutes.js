@@ -9,12 +9,12 @@ const SECRET_KEY = "sYqXlRys1w+DCjEdkMEeCDoVUwY1Ac5hxuBPznmc9cE";
 
 // Tạo JWT
 const createToken = (user) => {
-    return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
-  };
-  
-  // Middleware xác thực
+  return jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_KEY, {
+    expiresIn: "1h",
+  });
+};
+
+// Middleware xác thực
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).send("Unauthorized");
@@ -36,7 +36,9 @@ router.post("/signup", async (req, res) => {
     // Kiểm tra username hoặc email đã tồn tại
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
     if (existingUser) {
-      return res.status(400).json({ message: "Username hoặc email đã tồn tại" });
+      return res
+        .status(400)
+        .json({ message: "Username hoặc email đã tồn tại" });
     }
 
     // Tạo user mới với role mặc định là 'reader'
@@ -50,6 +52,7 @@ router.post("/signup", async (req, res) => {
 });
 
 // Đăng nhập
+// Đăng nhập
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -57,27 +60,30 @@ router.post("/login", async (req, res) => {
     // Tìm user theo email
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Email hoặc mật khẩu không chính xác" });
+      return res
+        .status(400)
+        .json({ message: "Email hoặc mật khẩu không chính xác" });
     }
 
     // Kiểm tra mật khẩu
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
-      return res.status(400).json({ message: "Email hoặc mật khẩu không chính xác" });
+      return res
+        .status(400)
+        .json({ message: "Email hoặc mật khẩu không chính xác" });
     }
 
     // Tạo token JWT
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      SECRET_KEY,
-      { expiresIn: "1d" }
-    );
+    const token = jwt.sign({ id: user._id, role: user.role }, SECRET_KEY, {
+      expiresIn: "1d",
+    });
 
-    // Trả về token và username
-    res.status(200).json({ 
-      message: "Đăng nhập thành công", 
-      token, 
-      username: user.username 
+    // Trả về token, user_id và username
+    res.status(200).json({
+      message: "Đăng nhập thành công",
+      token,
+      user_id: user._id, // Thêm user_id
+      username: user.username,
     });
   } catch (error) {
     res.status(500).json({ message: "Lỗi server", error });

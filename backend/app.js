@@ -64,6 +64,22 @@ app.use("/api/chapters", chapterRoutes);
 
 // up ảnh chapter
 app.use("/api", require("./routes/comicRoutes"));
+
+//
+const chapterPaymentRoutes = require("./routes/chapterPaymentRoutes");
+app.use("/api/chapter-payments", chapterPaymentRoutes);
+
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected successfully");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error("MongoDB connection error:", err);
+});
+
+mongoose.connection.on("disconnected", () => {
+  console.warn("MongoDB disconnected");
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

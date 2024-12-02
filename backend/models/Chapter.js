@@ -18,8 +18,14 @@ const chapterSchema = new mongoose.Schema({
     type: String,
   },
   images: {
-    type: [String], // Mảng URL hình ảnh
+    type: [String],
     default: [],
+  },
+  price: {
+    // Thêm trường giá
+    type: Number,
+    required: true,
+    default: 10000, // Giá mặc định (10,000 VNĐ)
   },
   created_at: {
     type: Date,
