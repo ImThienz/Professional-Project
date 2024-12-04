@@ -117,6 +117,15 @@ const ManageComics = () => {
   return (
     <div className="manage-comics-container">
       <h1>Manage Comics</h1>
+      
+      {/* Button to go back */}
+      <button
+        onClick={() => navigate("/admin/dashboard")}
+        className="bg-gray-500 text-white px-4 py-2 rounded mb-4"
+      >
+        Quay về Trang Chủ Admin
+      </button>
+      
       <form onSubmit={handleSubmit}>
         <input
           type="text"
