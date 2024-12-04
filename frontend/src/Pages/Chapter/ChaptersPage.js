@@ -14,6 +14,34 @@ const ChaptersPage = () => {
 
   useEffect(() => {
     const fetchChapters = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("User token is missing");
+        navigate("/login"); // Redirect to user login if token is missing
+        return;
+      }
+  
+      try {
+        const response = await axios.get(`/api/chapters/byComic/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setChapters(response.data);
+        setSelectedChapter(response.data[0]); // Chọn chapter đầu tiên làm mặc định
+      } catch (error) {
+        console.error("Error fetching chapters:", error.response?.data || error.message);
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          navigate("/login"); // Redirect to user login if unauthorized
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchChapters();
+  }, [id, navigate]);  
+
+  useEffect(() => {
+    const fetchChapters = async () => {
       try {
         console.log("Fetching chapters for comic_id:", id);
 
@@ -128,6 +156,28 @@ const ChaptersPage = () => {
     }
   };
 
+  const handleAddToCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Bạn cần đăng nhập để thêm vào giỏ hàng!");
+        navigate("/login");
+        return;
+      }
+
+      await axios.post(
+        "http://localhost:8080/api/cart",
+        { productId: id, quantity: 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert("Thêm vào giỏ hàng thành công!");
+      navigate("/cart"); // Điều hướng đến trang giỏ hàng
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("Không thể thêm vào giỏ hàng!");
+    }
+  };
+
   useEffect(() => {
     // Kiểm tra thanh toán ngay khi component mount với chapter mặc định
     if (selectedChapter) {
@@ -191,6 +241,22 @@ const ChaptersPage = () => {
         <button onClick={handlePayment} className="btn btn-primary">
           Thanh toán Chapter
         </button>
+      )}
+
+      {isPaid && (
+        <>
+          <p className="fs-4 fw-semibold text-primary text-center">
+            Thích chứ? Thích thì thêm vào giỏ hàng ngay đi, để dev-lỏ kiếm chút cháo nào :3
+          </p>
+
+          {/* Nút "Thêm vào giỏ hàng" */}
+          <button
+            onClick={handleAddToCart}
+            className="btn btn-primary add-to-cart-button"
+          >
+            Thêm vào giỏ hàng
+          </button>
+        </>
       )}
     </div>
   );
