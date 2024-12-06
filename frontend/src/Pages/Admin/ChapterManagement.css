@@ -1,0 +1,196 @@
+/* Tổng Container */
+.manage-chapter .container {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+/* Tiêu đề */
+.manage-chapter h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.8em;
+  color: #343a40;
+  font-weight: bold;
+}
+
+/* Danh sách truyện */
+.manage-chapter .comic-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px; /* Tăng khoảng cách giữa các card */
+  padding: 20px;
+}
+
+/* Card của truyện */
+.manage-chapter .comic-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.manage-chapter .comic-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Hình ảnh trong card */
+.manage-chapter .comic-card img {
+  width: 100%; /* Chiều rộng đầy đủ của card */
+  height: 200px; /* Chiều cao cố định */
+  object-fit: cover; /* Lấp đầy card, cắt phần dư */
+  border-radius: 12px; /* Bo góc mềm mại */
+  margin-bottom: 15px;
+}
+
+/* Tiêu đề và mô tả trong card */
+.manage-chapter .comic-card h3 {
+  font-size: 1.4em;
+  margin: 15px 0;
+  color: #343a40;
+  font-weight: bold;
+}
+
+.manage-chapter .comic-card p {
+  font-size: 1em;
+  color: #6c757d;
+  line-height: 1.5;
+}
+
+/* Truyện được chọn */
+.manage-chapter .comic-card-selected {
+  border: 2px solid #007bff;
+  background-color: #f0f8ff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+/* Chapters */
+.manage-chapter .chapter-section {
+  margin-top: 40px;
+}
+
+.manage-chapter .chapter-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #343a40;
+}
+
+.manage-chapter .chapter-section .chapter-table {
+  max-height: 400px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Thêm thanh cuộn dọc */
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.manage-chapter .chapter-table th,
+.manage-chapter .chapter-table td {
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.manage-chapter .chapter-table th {
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.manage-chapter .chapter-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Form */
+.manage-chapter .form-section {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.manage-chapter .form-section h2 {
+  font-size: 2em;
+  margin-bottom: 25px;
+  color: #343a40;
+}
+
+.manage-chapter .form-group {
+  margin-bottom: 20px;
+}
+
+.manage-chapter .form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1em;
+  color: #495057;
+}
+
+.manage-chapter .form-group input,
+.manage-chapter .form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.manage-chapter .form-group input:focus,
+.manage-chapter .form-group textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Nút bấm */
+.manage-chapter .submit-button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px; /* Bo góc mềm mại */
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.manage-chapter .submit-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.manage-chapter .reset-button {
+  background-color: #6c757d;
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px; /* Bo góc mềm mại */
+  font-size: 1em;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.manage-chapter .reset-button:hover {
+  background-color: #495057;
+  transform: translateY(-3px);
+}

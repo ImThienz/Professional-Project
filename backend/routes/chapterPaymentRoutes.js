@@ -17,8 +17,6 @@ router.post("/create-payment", async (req, res) => {
   try {
     const { user_id, chapter_id } = req.body;
 
-    console.log("Received data from frontend:", { user_id, chapter_id });
-
     if (!user_id || !chapter_id) {
       console.error("Missing user_id or chapter_id");
       return res
@@ -31,8 +29,6 @@ router.post("/create-payment", async (req, res) => {
       console.error("Chapter not found with id:", chapter_id);
       return res.status(404).json({ message: "Chapter không tồn tại." });
     }
-
-    console.log("Chapter found:", chapter);
 
     const amount = chapter.price * 100;
     const orderId = `${user_id}-${chapter_id}-${Date.now()}`;

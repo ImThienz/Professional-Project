@@ -23,6 +23,8 @@ app.use(
   })
 );
 app.use(express.json());
+// Serve static files
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose
   .connect("mongodb://localhost:27017/doanchuyennganh", {
@@ -68,6 +70,10 @@ app.use("/api", require("./routes/comicRoutes"));
 //
 const chapterPaymentRoutes = require("./routes/chapterPaymentRoutes");
 app.use("/api/chapter-payments", chapterPaymentRoutes);
+
+//chỉnh sửa chapter
+const adminChapterRoutes = require("./routes/adminChapterRoutes");
+app.use("/api/admin/chapters", adminChapterRoutes);
 
 mongoose.connection.on("connected", () => {
   console.log("MongoDB connected successfully");
