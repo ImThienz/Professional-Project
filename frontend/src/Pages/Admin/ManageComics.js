@@ -8,15 +8,13 @@ const ManageComics = () => {
   const [editingComic, setEditingComic] = useState(null);
   const [form, setForm] = useState({
     title: "",
-    comic_id: "",
     author: "",
     price: "",
     category_id: "",
     genre: "",
     description: "",
-    cover_image: null,
+    cover_image: null, // Lưu file ảnh upload
   });
-
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
@@ -38,7 +36,6 @@ const ManageComics = () => {
   }, [navigate]);
 
   useEffect(() => {
-    // Fetch all comics from the backend
     axios.get("/api/v1/admin").then((res) => setComics(res.data.comics));
   }, []);
 
@@ -48,98 +45,104 @@ const ManageComics = () => {
   };
 
   const handleFileChange = (e) => {
-    setForm((prev) => ({ ...prev, cover_image: e.target.files[0] }));
+    setForm((prev) => ({ ...prev, cover_image: e.target.files[0] })); // Lưu file ảnh upload
   };
 
   const handleEdit = (comic) => {
     setEditingComic(comic._id);
-    setForm({ ...comic });
+    setForm({
+      title: comic.title,
+      author: comic.author,
+      price: comic.price,
+      category_id: comic.category_id,
+      genre: comic.genre,
+      description: comic.description,
+      cover_image: null, // Không cần tải lại file hình ảnh cũ
+    });
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this comic?")) {
-      axios.delete(`/api/v1/admin/${id}`).then(() => {
-        setComics((prev) => prev.filter((comic) => comic._id !== id));
-      });
+      axios
+        .delete(`/api/v1/admin/${id}`)
+        .then(() => {
+          setComics((prev) => prev.filter((comic) => comic._id !== id));
+        })
+        .catch((error) => console.error("Error deleting comic:", error));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
+
+    const formData = new FormData(); // Sử dụng FormData để gửi cả text và file
     Object.keys(form).forEach((key) => {
-      formData.append(key, form[key]);
+      if (form[key]) {
+        formData.append(key, form[key]);
+      }
     });
 
-    // Kiểm tra xem có hình ảnh không và gửi
-    if (editingComic) {
-      axios
-        .put(`/api/v1/admin/${editingComic}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log("Updated comic:", res.data); // Log dữ liệu sau khi cập nhật
+    const endpoint = editingComic
+      ? `/api/v1/admin/${editingComic}`
+      : "/api/v1/admin";
+
+    const method = editingComic ? "put" : "post";
+
+    axios({
+      method,
+      url: endpoint,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data", // Đảm bảo gửi đúng định dạng
+      },
+    })
+      .then((res) => {
+        if (editingComic) {
           setComics((prev) =>
             prev.map((comic) => (comic._id === editingComic ? res.data : comic))
           );
-          setEditingComic(null);
-          setForm({
-            title: "",
-            comic_id: "",
-            author: "",
-            price: "",
-            category_id: "",
-            genre: "",
-            description: "",
-            cover_image: null,
-          });
-        })
-        .catch((err) => {
-          console.error("Error updating comic:", err);
-          alert("Error updating comic");
-        });
-    } else {
-      axios
-        .post("/api/v1/admin", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((res) => {
-          console.log("New comic added:", res.data); // Log comic mới thêm vào
+        } else {
           setComics((prev) => [...prev, res.data]);
-        })
-        .catch((err) => {
-          console.error("Error adding comic:", err);
-          alert("Error adding comic");
+        }
+
+        setEditingComic(null);
+        setForm({
+          title: "",
+          author: "",
+          price: "",
+          category_id: "",
+          genre: "",
+          description: "",
+          cover_image: null,
         });
-    }
+      })
+      .catch((error) => {
+        console.error("Error submitting comic:", error);
+      });
+  };
+
+  const getImageUrl = (imagePath) => {
+    const baseUrl = "http://localhost:8080"; // URL backend
+    return imagePath
+      ? `${baseUrl}${imagePath}`
+      : "https://via.placeholder.com/250x350";
   };
 
   return (
     <div className="manage-comics-container">
       <h1>Manage Comics</h1>
-      
-      {/* Button to go back */}
       <button
         onClick={() => navigate("/admin/dashboard")}
-        className="bg-gray-500 text-white px-4 py-2 rounded mb-4"
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
       >
         Quay về Trang Chủ Admin
       </button>
-      
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <input
           type="text"
           name="title"
           placeholder="Title"
           value={form.title}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="comic_id"
-          placeholder="Comic ID"
-          value={form.comic_id}
           onChange={handleInputChange}
           required
         />
@@ -160,13 +163,6 @@ const ManageComics = () => {
           required
         />
         <input
-          type="number"
-          name="category_id"
-          placeholder="Category ID"
-          value={form.category_id}
-          onChange={handleInputChange}
-        />
-        <input
           type="text"
           name="genre"
           placeholder="Genre"
@@ -179,34 +175,33 @@ const ManageComics = () => {
           value={form.description}
           onChange={handleInputChange}
         />
-        <input type="file" onChange={handleFileChange} />
+        <input type="file" name="cover_image" onChange={handleFileChange} />
+        {form.cover_image && (
+          <img
+            src={URL.createObjectURL(form.cover_image)}
+            alt="Preview"
+            className="preview-image"
+          />
+        )}
         <button type="submit">{editingComic ? "Update" : "Add"} Comic</button>
       </form>
 
       <h2>Comic List</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {comics.map((comic) => (
-            <tr key={comic._id}>
-              <td>{comic.title}</td>
-              <td>{comic.author}</td>
-              <td>{comic.price}</td>
-              <td>
-                <button onClick={() => handleEdit(comic)}>Edit</button>
-                <button onClick={() => handleDelete(comic._id)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="comic-list">
+        {comics.map((comic) => (
+          <div key={comic._id} className="comic-card">
+            <img
+              src={getImageUrl(comic.cover_image)}
+              alt={comic.title}
+              className="comic-cover"
+            />
+            <h3>{comic.title}</h3>
+            <p>{comic.description}</p>
+            <button onClick={() => handleEdit(comic)}>Edit</button>
+            <button onClick={() => handleDelete(comic._id)}>Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

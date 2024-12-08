@@ -104,11 +104,11 @@ ul {
 
 .remove-btn {
   background-color: #dc3545;
-  font-size: 0.6rem; /* Giảm kích thước font */
-  padding: 2px 6px; /* Giảm padding, chỉ bao quanh chữ */
+  font-size: 0.6rem;
+  padding: 2px 6px;
   border-radius: 5px;
-  text-align: center; /* Đảm bảo chữ được căn giữa */
-  display: inline-block; /* Đảm bảo nút có kích thước nhỏ gọn */
+  text-align: center;
+  display: inline-block;
 }
 
 .remove-btn:hover {
@@ -128,13 +128,24 @@ ul {
   margin-bottom: 20px;
 }
 
+/* Nút áp dụng voucher */
+.cart-summary input {
+  width: 70%;
+  padding: 8px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
 .cart-summary button {
   background-color: #007bff;
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  width: 100%;
+  padding: 8px 20px; /* Giảm padding */
+  font-size: 1rem; /* Giảm font size */
+  border-radius: 6px; /* Giảm border-radius */
   transition: background-color 0.3s ease, transform 0.2s;
+  display: inline-block; /* Giữ nút nhỏ gọn */
+  margin: 5px; /* Thêm khoảng cách giữa các nút */
 }
 
 .cart-summary button:hover {
@@ -182,7 +193,11 @@ ul {
   }
 
   .cart-summary button {
-    font-size: 1rem;
-    padding: 10px 20px;
+    font-size: 0.9rem; /* Giảm kích thước font cho mobile */
+    padding: 6px 15px; /* Giảm padding cho nút */
+  }
+
+  .cart-summary input {
+    width: 90%; /* Đảm bảo input không quá lớn trên mobile */
   }
 }

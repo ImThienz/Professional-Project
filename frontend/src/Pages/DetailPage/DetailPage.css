@@ -1,11 +1,14 @@
+/* Tổng quan */
 .comic-detail-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
   background-color: #f8f9fa;
   min-height: 100vh;
+  text-align: center;
 }
 
+/* Tiêu đề */
 .comic-title {
   font-size: 2.5rem;
   color: #2c3e50;
@@ -17,26 +20,31 @@
   padding-bottom: 1rem;
 }
 
+/* Hình ảnh bìa */
 .comic-cover {
   display: block;
-  max-width: 400px;
-  height: auto;
+  width: 100%; /* Hiển thị full chiều rộng */
+  max-width: 250px; /* Đảm bảo không quá lớn */
+  height: auto; /* Tự động giữ tỉ lệ */
   margin: 0 auto 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  object-fit: contain; /* Đảm bảo hiển thị đầy đủ hình ảnh */
 }
 
 .comic-cover:hover {
   transform: scale(1.02);
 }
 
+/* Thông tin chi tiết */
 .comic-details {
   background-color: white;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   margin-bottom: 2rem;
+  text-align: left;
 }
 
 .comic-details p {
@@ -59,92 +67,68 @@
   margin-top: 1rem;
 }
 
-.back-button {
-  display: inline-block;
-  padding: 0.8rem 1.5rem;
-  background-color: #3498db;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-  margin-right: 1rem;
-}
-
-.back-button:hover {
-  background-color: #2980b9;
-}
-
-button {
-  padding: 0.8rem 1.5rem;
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #c0392b;
-}
-
-/* Chapter List Styles */
-.chapter-list {
+/* Nút hành động */
+.action-buttons {
+  display: flex;
+  justify-content: center; /* Căn giữa toàn bộ nhóm nút */
+  gap: 1rem; /* Khoảng cách giữa các nút */
   margin-top: 2rem;
 }
 
-.chapter-item {
-  display: flex;
-  align-items: start;
-  background-color: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.chapter-item:hover {
-  transform: translateY(-2px);
-}
-
-.chapter-image {
-  width: 200px;
-  height: auto;
-  border-radius: 4px;
-  margin-right: 1.5rem;
-}
-
-.chapter-details {
-  flex: 1;
-}
-
-.chapter-details h3 {
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
-  font-size: 1.25rem;
-}
-
-.chapter-details p {
-  margin-bottom: 0.5rem;
-  color: #4a5568;
-}
-
-.view-chapters-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
+.action-buttons a,
+.action-buttons button {
+  flex: 1; /* Các nút có cùng chiều rộng */
+  height: 50px; /* Chiều cao cố định cho tất cả các nút */
+  padding: 0; /* Loại bỏ ảnh hưởng của padding đến kích thước nút */
+  font-size: 1rem; /* Kích thước chữ đồng nhất */
+  font-weight: bold;
+  border-radius: 6px; /* Bo góc cho nút */
   text-decoration: none;
-  border-radius: 5px;
-  text-align: center;
+  text-align: center; /* Căn giữa văn bản theo chiều ngang */
+  display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+  align-items: center; /* Căn giữa nội dung theo chiều dọc */
+  justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+  min-width: 120px; /* Đảm bảo nút có chiều rộng tối thiểu */
+  margin: 0;
 }
 
-.view-chapters-button:hover {
-  background-color: #0056b3;
+/* Màu sắc và hiệu ứng hover */
+.action-buttons .back-button {
+  background-color: #3498db;
+  color: white;
 }
+
+.action-buttons .back-button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.action-buttons .add-to-cart-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.action-buttons .add-to-cart-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.action-buttons .view-chapters-button {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.action-buttons .view-chapters-button:hover {
+  background-color: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .comic-detail-container {
@@ -157,15 +141,16 @@ button:hover {
 
   .comic-cover {
     max-width: 100%;
+    height: auto;
   }
 
-  .chapter-item {
-    flex-direction: column;
+  .action-buttons {
+    flex-direction: column; /* Xếp nút theo cột trên màn hình nhỏ */
   }
 
-  .chapter-image {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 1rem;
+  .action-buttons a,
+  .action-buttons button {
+    width: 100%; /* Nút full chiều rộng */
+    margin-bottom: 1rem; /* Khoảng cách giữa các nút */
   }
 }

@@ -1,0 +1,212 @@
+/* Đảm bảo nút có kích thước và màu sắc đồng bộ */
+button {
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  min-width: 120px; /* Đảm bảo nút đồng đều */
+  text-align: center;
+  border: none;
+  margin: 0;
+}
+
+button.bg-red-500 {
+  background-color: #e74c3c; /* Màu đỏ cho nút xóa */
+  color: white;
+}
+
+button.bg-red-500:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+button.bg-blue-500 {
+  background-color: #3498db; /* Màu xanh cho nút thay đổi role */
+  color: white;
+}
+
+button.bg-blue-500:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Định dạng nút khi disabled */
+button:disabled {
+  background-color: #bdc3c7;
+  color: white;
+  cursor: not-allowed;
+}
+
+/* Khoảng cách giữa các nút */
+.flex button + button {
+  margin-left: 10px;
+}
+
+/* Popup container */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 400px;
+}
+
+/* Tiêu đề popup */
+.modal-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Nút chọn role */
+.role-button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+  width: 140px; /* Đồng bộ kích thước nút */
+  text-align: center;
+}
+
+/* Nút Admin */
+.role-button.admin {
+  background-color: #3498db;
+  color: white;
+}
+
+.role-button.admin:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* Nút Reader */
+.role-button.reader {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.role-button.reader:hover {
+  background-color: #27ae60;
+  transform: scale(1.05);
+}
+
+/* Nút đóng */
+.close-button {
+  background-color: #e74c3c;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  width: 140px; /* Đồng bộ kích thước */
+}
+
+.close-button:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+/* Table container */
+.bg-white.shadow-md.rounded {
+  overflow-x: auto; /* Đảm bảo bảng không bị tràn khi màn hình nhỏ */
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+table thead {
+  background-color: #3498db; /* Màu nền cho tiêu đề bảng */
+  color: #fff; /* Màu chữ trắng */
+}
+
+table th,
+table td {
+  padding: 16px 20px; /* Đồng bộ khoảng cách */
+  text-align: left; /* Căn trái nội dung */
+  border-bottom: 1px solid #ddd; /* Đường kẻ ngang giữa các dòng */
+}
+
+table th {
+  text-transform: uppercase; /* Chữ in hoa */
+  font-size: 1rem;
+  font-weight: bold;
+  white-space: nowrap; /* Giữ chữ tiêu đề gọn trong ô */
+}
+
+/* Loại bỏ hiệu ứng hover ở tiêu đề */
+table thead tr:hover {
+  background-color: transparent;
+}
+
+table tr:hover {
+  background-color: #f9f9f9; /* Hiệu ứng hover chỉ áp dụng trên dòng */
+}
+
+table td {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Action buttons inside the table */
+table td .bg-red-500,
+table td .bg-blue-500 {
+  font-size: 0.9rem;
+  padding: 12px 15px;
+  text-align: center;
+  width: 140px; /* Đồng bộ kích thước */
+}
+
+table td .bg-red-500:hover {
+  background-color: #c0392b;
+}
+
+table td .bg-blue-500:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  table th,
+  table td {
+    padding: 10px; /* Giảm padding trên màn hình nhỏ */
+  }
+
+  table td .bg-red-500,
+  table td .bg-blue-500 {
+    width: 100px; /* Thu hẹp nút trên màn hình nhỏ */
+  }
+}

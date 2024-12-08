@@ -39,8 +39,13 @@ const ComicDetailPage = () => {
 
   return (
     <div className="comic-detail-container">
+      {/* Tiêu đề */}
       <h1 className="comic-title">{comic.title}</h1>
+
+      {/* Hình ảnh bìa */}
       <img src={imageUrl} alt={comic.title} className="comic-cover" />
+
+      {/* Chi tiết truyện */}
       <div className="comic-details">
         <p>
           <strong>Author:</strong> {comic.author}
@@ -51,23 +56,32 @@ const ComicDetailPage = () => {
         <p>
           <strong>Description:</strong>
         </p>
-        <p className="comic-description">{comic.description}</p>
+        <div className="comic-description">{comic.description}</div>
       </div>
 
-      {/* Nút "Quay về danh sách truyện tranh" */}
-      <Link to="/" className="back-button">
-        Quay về Danh sách Truyện tranh
-      </Link>
+      {/* Nút hành động */}
+      <div className="action-buttons">
+        {/* Nút "Quay về danh sách truyện tranh" */}
+        <Link to="/" className="back-button read-now">
+          Quay về Danh sách Truyện tranh
+        </Link>
 
-      {/* Nút "Thêm vào giỏ hàng" */}
-      <button onClick={handleAddToCart} className="add-to-cart-button">
-        Thêm vào giỏ hàng
-      </button>
+        {/* Nút "Thêm vào giỏ hàng" */}
+        <button
+          onClick={handleAddToCart}
+          className="add-to-cart-button read-now"
+        >
+          Thêm vào giỏ hàng
+        </button>
 
-      {/* Nút "View Chapters" */}
-      <Link to={`/comics/${id}/chapters`} className="view-chapters-button">
-        View Chapters
-      </Link>
+        {/* Nút "View Chapters" */}
+        <Link
+          to={`/comics/${id}/chapters`}
+          className="view-chapters-button read-now"
+        >
+          Xem Chapters
+        </Link>
+      </div>
     </div>
   );
 };

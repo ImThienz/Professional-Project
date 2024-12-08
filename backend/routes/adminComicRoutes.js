@@ -97,15 +97,19 @@ router.put("/:id", upload.single("cover_image"), async (req, res) => {
 // Xóa comic (DELETE request)
 router.delete("/:id", async (req, res) => {
   try {
-    const comic = await Comic.findById(req.params.id);
+    console.log("Delete request received for ID:", req.params.id); // Log ID nhận được
+
+    const comic = await Comic.findByIdAndDelete(req.params.id); // Sử dụng findByIdAndDelete
     if (!comic) {
+      console.log("Comic not found");
       return res.status(404).json({ message: "Comic not found" });
     }
 
-    await comic.remove();
-    res.json({ message: "Comic deleted" });
+    console.log("Comic deleted successfully");
+    res.json({ message: "Comic deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Error deleting comic:", err); // Log lỗi
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

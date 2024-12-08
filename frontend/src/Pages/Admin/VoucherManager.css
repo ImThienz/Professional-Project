@@ -1,0 +1,57 @@
+.voucher-manager {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.voucher-manager h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.voucher-manager form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.voucher-manager input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.voucher-manager button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.voucher-manager button:hover {
+  background: #0056b3;
+}
+
+.voucher-manager ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.voucher-manager li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.voucher-manager li button {
+  margin-left: 10px;
+}

@@ -75,6 +75,16 @@ app.use("/api/chapter-payments", chapterPaymentRoutes);
 const adminChapterRoutes = require("./routes/adminChapterRoutes");
 app.use("/api/admin/chapters", adminChapterRoutes);
 
+//thêm voucher
+const voucherRoutes = require("./routes/voucherRoutes");
+app.use("/api/voucher", voucherRoutes);
+
+///
+//chỉnh sửa voucher cho admin
+const adminVoucherRoutes = require("./routes/adminVoucherRoutes");
+app.use("/api/admin/vouchers", adminVoucherRoutes);
+
+/////test kết nối
 mongoose.connection.on("connected", () => {
   console.log("MongoDB connected successfully");
 });

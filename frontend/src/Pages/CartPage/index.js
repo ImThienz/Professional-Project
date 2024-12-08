@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Dùng để chuyển hướng
+import { useNavigate } from "react-router-dom";
 import "./CartPage.css";
 import { Plus, Minus, Trash2 } from "lucide-react";
 
 const CartPage = () => {
   const [cart, setCart] = useState({ items: [] });
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Hook để điều hướng
+  const [voucher, setVoucher] = useState(""); // State lưu mã voucher
+  const [discount, setDiscount] = useState(0); // State lưu % giảm giá
+  const navigate = useNavigate();
 
-  // Check if user is logged in and fetch cart data
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("Bạn cần đăng nhập để xem giỏ hàng!");
-      navigate("/login"); // Chuyển hướng đến trang đăng nhập
-      return; // Dừng thực thi nếu chưa đăng nhập
+      navigate("/login");
+      return;
     }
 
     const fetchCart = async () => {
@@ -35,7 +36,6 @@ const CartPage = () => {
     fetchCart();
   }, [navigate]);
 
-  // Các hàm khác giữ nguyên, không cần kiểm tra token nữa vì đã kiểm tra ở trên
   const handleRemoveFromCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
@@ -93,7 +93,27 @@ const CartPage = () => {
     }, 0);
   };
 
+  const calculateDiscountedTotal = () => {
+    const total = calculateTotalPrice();
+    return total - (total * discount) / 100;
+  };
+
   const formatPrice = (price) => price.toLocaleString();
+
+  const handleApplyVoucher = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/voucher/check-voucher",
+        { code: voucher }
+      );
+      setDiscount(response.data.discount);
+      alert(`Voucher hợp lệ! Giảm ${response.data.discount}%`);
+    } catch (error) {
+      console.error(error);
+      alert("Voucher không hợp lệ hoặc đã hết hạn!");
+      setDiscount(0);
+    }
+  };
 
   const handlePayment = async () => {
     const response = await fetch(
@@ -102,7 +122,7 @@ const CartPage = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: calculateTotalPrice(),
+          amount: calculateDiscountedTotal(),
           orderId: Date.now(),
           orderInfo: "Thanh toán đơn hàng",
         }),
@@ -129,12 +149,6 @@ const CartPage = () => {
                 src={`http://localhost:8080${item.productId.cover_image}`}
                 alt={item.productId.title}
                 className="cart-item-image"
-                onError={() =>
-                  console.log(
-                    "Image failed to load:",
-                    item.productId.cover_image
-                  )
-                }
               />
               <div className="cart-item-info">
                 <h2>{item.productId.title}</h2>
@@ -183,6 +197,21 @@ const CartPage = () => {
       </ul>
       <div className="cart-summary">
         <h3>Tổng cộng: {formatPrice(calculateTotalPrice())} VND</h3>
+        <div>
+          <input
+            type="text"
+            placeholder="Nhập voucher"
+            value={voucher}
+            onChange={(e) => setVoucher(e.target.value)}
+          />
+          <button onClick={handleApplyVoucher}>Áp dụng</button>
+        </div>
+        {discount > 0 && (
+          <p>
+            Giảm giá: {discount}% - Còn lại:{" "}
+            {formatPrice(calculateDiscountedTotal())} VND
+          </p>
+        )}
         <button onClick={handlePayment}>Thanh toán</button>
       </div>
     </div>

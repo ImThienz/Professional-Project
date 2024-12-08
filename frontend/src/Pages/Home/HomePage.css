@@ -12,7 +12,7 @@
 
 .comic-item {
   flex: 0 0 auto; /* Đảm bảo các phần tử không co lại */
-  width: 200px;
+  width: 300px;
   text-align: center;
   background-color: #f8f8f8;
   border-radius: 8px;
