@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../../Assets/logo.jpg";
+import headerImage from "../../Assets/header.png";
 import { Link } from "react-router-dom"; // Import Link
 import { FaUserCircle, FaHeart } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
@@ -8,7 +9,8 @@ import SearchBox from "./SearchBox";
 import Navigation from "./Navigation";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
-
+import adminLogo from "../../Assets/admin.png"; // Import hình ảnh
+import contactIcon from "../../Assets/contact.png";
 const Header = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false); // Trạng thái menu thả xuống
@@ -52,11 +54,47 @@ const Header = () => {
   return (
     <>
       <div className="headerWrapper">
-        <div className="top-strip bg-color">
-          <div className="container">
-            <p className="mb-0 mt-0 text-center">
-              Trang web đọc truyện của nhóm 06
+        <div className="top-strip bg-color" style={{
+          backgroundImage: `url(${headerImage})`, // Sử dụng ảnh import
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}>
+          <div className="container d-flex align-items-center justify-content-between">
+            {/* Thêm logo admin */}
+            <Link to="/admin/login">
+              <img
+                src={adminLogo} 
+                alt="Admin Logo"
+                style={{
+                  height: "70px", 
+                  width: "auto", 
+                  cursor: "pointer", 
+                  objectFit: "contain",
+                }}
+              />
+            </Link>
+
+            <p className="mb-0 mt-0 text-center flex-grow-1" style={{
+              fontweight: "bold",
+              fontSize: "35px",
+            }}>
+              Trang web <span className="text-danger">đọc & bán truyện</span> của nhóm 06
             </p>
+
+            {/* Thêm icon dẫn đến trang liên hệ */}
+            <Link to="/contact">
+              <img 
+                src={contactIcon} 
+                alt="Contact Icon"
+                style={{
+                  height: "100px", 
+                  width: "100px", 
+                  cursor: "pointer", 
+                  objectFit: "contain",
+                }}
+              />
+            </Link>
           </div>
         </div>
         <header className="header">
@@ -83,8 +121,16 @@ const Header = () => {
 
                 {/* Kiểm tra trạng thái đăng nhập */}
                 {username ? (
-                  <div className="logged-in-user mt-4">
-                    <span>Xin chào, {username}</span>
+                  <div className="logged-in-user mt-4 d-flex align-items-center">
+                    <span className="mr-3">Xin chào, {username}</span>
+
+                    {/* Link đến trang quản lý người dùng */}
+                    <Button className="manage-user-btn mr-3">
+                      <Link to="/user/profile">
+                        Quản lý tài khoản
+                      </Link>
+                    </Button>
+
                     <Button className="logout-btn ml-3" onClick={handleLogout}>
                       Đăng xuất
                     </Button>
@@ -96,6 +142,7 @@ const Header = () => {
                     </Link>
                   </Button>
                 )}
+
 
                 <div className="cartTab">
                   <Button className="cart ml-3">
