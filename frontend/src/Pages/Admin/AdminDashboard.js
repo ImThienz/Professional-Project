@@ -5,6 +5,7 @@ import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
+  const [contactRequests, setContactRequests] = useState([]); // Thêm state cho yêu cầu liên hệ
   const [selectedUser, setSelectedUser] = useState(null); // User cần thay đổi quyền
   const [isModalOpen, setIsModalOpen] = useState(false); // Trạng thái mở/đóng modal
   const navigate = useNavigate();
@@ -22,7 +23,22 @@ const AdminDashboard = () => {
       }
     };
 
+    // Lấy yêu cầu liên hệ
+    const fetchContactRequests = async () => {
+      try {
+        const token = localStorage.getItem("adminToken");
+        const response = await axios.get("/api/admin/contact-requests", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log("Dữ liệu yêu cầu liên hệ:", response.data);
+        setContactRequests(response.data);
+      } catch (error) {
+        console.error("Không thể tải yêu cầu liên hệ", error);
+      }
+    };
+
     fetchUsers();
+    fetchContactRequests();
   }, [navigate]);
 
   const handleLogout = () => {
@@ -179,6 +195,35 @@ const AdminDashboard = () => {
           </div>
         </div>
       )}
+
+      <div className="bg-white shadow-md rounded mb-6">
+        <h2 className="text-xl font-semibold mb-4">Danh Sách Yêu Cầu Liên Hệ</h2>
+        <table className="min-w-full">
+          <thead>
+            <tr>
+              <th>Tên</th>
+              <th>Email</th>
+              <th>Lời nhắn</th>
+            </tr>
+          </thead>
+          <tbody>
+            {contactRequests.length === 0 ? (
+              <tr>
+                <td colSpan="3" className="text-center">Không có yêu cầu liên hệ</td>
+              </tr>
+            ) : (
+              contactRequests.map((request) => (
+                <tr key={request._id}>
+                  <td>{request.username}</td>
+                  <td>{request.email}</td>
+                  <td>{request.message}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+
     </div>
   );
 };

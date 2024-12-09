@@ -52,7 +52,6 @@ router.post("/signup", async (req, res) => {
 });
 
 // Đăng nhập
-// Đăng nhập
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -86,6 +85,29 @@ router.post("/login", async (req, res) => {
       username: user.username,
     });
   } catch (error) {
+    res.status(500).json({ message: "Lỗi server", error });
+  }
+});
+
+// Users Profile
+router.put("/update-profile", verifyToken, async (req, res) => {
+  const { username, email, password } = req.body;
+
+  try {
+    const user = await User.findById(req.user.id); // req.user.id lấy từ token
+    if (!user) {
+      return res.status(404).json({ message: "Người dùng không tồn tại" });
+    }
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (password) user.password = password;
+
+    await user.save();
+
+    res.status(200).json({ message: "Cập nhật thông tin thành công", user });
+  } catch (error) {
+    console.error("Error updating user:", error);
     res.status(500).json({ message: "Lỗi server", error });
   }
 });

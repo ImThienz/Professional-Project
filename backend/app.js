@@ -42,6 +42,11 @@ app.use("/api/comics", comicRoutes);
 // Routes for users
 app.use("/api/users", userRoutes);
 
+// Thêm route mới cho liên hệ
+const contactRoutes = require("./routes/contactRoutes");  // Thêm route contact
+app.use("/api/contact", contactRoutes);
+app.use("/api/admin/contact-requests", contactRoutes); // chỉ Admin mới có quyền truy cập
+
 // Routes for payment
 const paymentRoutes = require("./routes/paymentRoutes");
 app.use("/api/vnpay", paymentRoutes);
@@ -67,7 +72,7 @@ app.use("/api/chapters", chapterRoutes);
 // up ảnh chapter
 app.use("/api", require("./routes/comicRoutes"));
 
-//
+// thanh toán chapter
 const chapterPaymentRoutes = require("./routes/chapterPaymentRoutes");
 app.use("/api/chapter-payments", chapterPaymentRoutes);
 

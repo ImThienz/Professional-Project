@@ -1,0 +1,63 @@
+/* UserProfile.css */
+.profile-container {
+    background-image: url('../../Assets/user-profile.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 75%;
+  }
+  
+  .profile-container h2 {
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .profile-form {
+    background-image: url('../../Assets/form-user-profile.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 65px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+    color: black;
+  }
+  
+  .profile-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .profile-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .profile-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .message {
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  

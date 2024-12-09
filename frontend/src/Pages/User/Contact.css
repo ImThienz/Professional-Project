@@ -1,0 +1,112 @@
+/* Container chính */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tiêu đề */
+  .contact-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Form chính */
+  .contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Nhóm input */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Label */
+  .form-group label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  /* Input và textarea */
+  input,
+  textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    resize: none;
+  }
+  
+  /* Placeholder */
+  input::placeholder,
+  textarea::placeholder {
+    color: #bbb;
+  }
+  
+  /* Lỗi input */
+  .error {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+  
+  /* Button */
+  button {
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Nút đang tải */
+  button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+  }
+  
+  /* Nút hover */
+  button:not(:disabled):hover {
+    background-color: #2980b9;
+  }
+  
+  /* Status message */
+  .status-message {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .status-message.loading {
+    color: #95a5a6;
+  }
+  
+  .status-message.success {
+    color: #2ecc71;
+    background-color: #e8f9e8;
+  }
+  
+  .status-message.error {
+    color: #e74c3c;
+    background-color: #f9e8e8;
+  }
+  
