@@ -10,6 +10,7 @@ import { GiHumanTarget } from "react-icons/gi";
 import { GrAttraction } from "react-icons/gr";
 import { GiPunchBlast } from "react-icons/gi";
 import React, { useState } from 'react';
+import navigate from "../../../Assets/navigate.jpg";
 
 const Navigation = () => {
 
@@ -17,7 +18,18 @@ const Navigation = () => {
 
   return (
     <nav>
-      <div className="container">
+      <div className="container" style={{
+        backgroundImage: `url(${navigate})`, // Áp dụng ảnh cho form
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "20px",
+        borderRadius: "10px", 
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Thêm bóng
+        minWidth: "800px", 
+        margin: "0 auto",
+        color: "black", 
+        opacity: "75%",
+      }}>
         <div className="row">
           <div className="col-sm-3 navPart1">
             <div className="cartWrapper">
