@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Index";
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 import ComicDetailPage from "./Pages/DetailPage";
 import Favorites from "./Pages/Favorites";
 import Purchase from "./Pages/Purchase";
@@ -50,6 +51,7 @@ function App() {
         <Route path="/truyen" element={<ComicList />} />
         <Route path="/comics/:id/chapters" element={<ChaptersPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

@@ -60,6 +60,8 @@ frontend/
 │   ├── Assets/
 │   │		└── ...
 │   └── Components/
+│	│		├── Footer/
+│	│		│		└── index.js / .css
 │	│		└── Header/
 │	│		│		├── LoginSignup/
 │	│		│		│		└── index.js / .css
@@ -86,7 +88,7 @@ frontend/
 │	│		│		├── ChapterPage.js / .css
 │	│		│		├── ComicChapter.js
 │	│		│		└── ComicList.js
-	│		├── DetailPage/
+│	│		├── DetailPage/
 │	│		│		└── index.js / .css
 │	│		├── Favorites/
 │	│		│		└── index.js / .css
@@ -160,12 +162,13 @@ npm init -y
 npm install express mongoose cors
 npm start
 
+[Contact:]
+npm install express nodemailer mongoose
+
 -----------------------------
 	CMD:
 npm install bcrypt
 openssl rand -base64 32
 
-[Contact:]
-npm install express nodemailer mongoose
 ===========================================
 
