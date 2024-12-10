@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './Contact.css'; // Import file CSS
+import { useNavigate } from "react-router-dom";
+import './Contact.css';
 
 const ContactPage = () => {
   // State để lưu thông tin form và trạng thái
@@ -12,6 +13,16 @@ const ContactPage = () => {
   const [statusMessage, setStatusMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const navigate = useNavigate();  // Sử dụng useNavigate
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // Nếu không có token, điều hướng về trang đăng nhập
+      alert("Bạn cần phải đăng nhập để có thể Liên hệ!");
+      navigate("/login");
+    }
+  }, [navigate]);
 
   // Hàm xử lý thay đổi giá trị input
   const handleChange = (e) => {

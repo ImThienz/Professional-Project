@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  // Import useNavigate
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import userProfileImage from "../../Assets/user-profile.jpg";
 import formUserProfile from "../../Assets/form-user-profile.jpg";
@@ -13,6 +13,15 @@ const UserProfile = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // Nếu không có token, điều hướng về trang đăng nhập
+      alert("Bạn phải đăng nhập để xem Profile!");
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
