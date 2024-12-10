@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import "./HomePage.css";
-
+import home from "../../Assets/home.jpg";
 import { FaArrowRight } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -58,7 +58,17 @@ const HomePage = () => {
   return (
     <div>
       <h1>Danh sách Truyện tranh Nổi bật:</h1>
-      <div className="comic-list-container">
+      <div className="comic-list-container" style={{
+        backgroundImage: `url(${home})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "20px",
+        borderRadius: "10px", 
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        minWidth: "800px", 
+        margin: "0 auto",
+        color: "black", 
+      }}>
         {comics.length === 0 ? (
           <p>Không tìm thấy mẫu truyện nào!</p>
         ) : (
