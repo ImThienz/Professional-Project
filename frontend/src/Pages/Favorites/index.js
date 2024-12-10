@@ -13,9 +13,13 @@ const FavoritesPage = () => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/comics/getAll')
+    axios
+      .get('http://localhost:8080/api/v1/comics/getAll')
       .then(response => {
-        const favoriteComics = response.data.filter(comic => favorites.includes(comic._id));
+        console.log('Comics data:', response.data);
+        const favoriteComics = response.data.filter(comic =>
+          favorites.includes(comic._id)
+        );
         setComics(favoriteComics);
       })
       .catch(error => {
@@ -32,12 +36,20 @@ const FavoritesPage = () => {
         ) : (
           <div className="comic-list">
             {comics.map(comic => (
-              <div 
-                key={comic._id} 
-                className="comic-item" 
+              <div
+                key={comic._id}
+                className="comic-item"
                 onClick={() => navigate(`/comics/${comic._id}`)}
               >
-                <img src={comic.cover_image} alt={comic.title} className="comic-image" />
+                <img
+                  src={`http://localhost:8080${comic.cover_image}`} // URL đầy đủ từ API
+                  alt={comic.title}
+                  className="comic-image"
+                  onError={(e) => {
+                    console.error('Error loading image:', e.target.src);
+                    e.target.src = '/placeholder.jpg';
+                  }}
+                />
                 <h2 className="comic-title">{comic.title}</h2>
               </div>
             ))}
