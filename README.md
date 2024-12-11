@@ -1,2 +1,2 @@
-# Professional-Project
-from Vietnam Aviation Academy - IT_K16_HK7 - 0101000864
+# Web bán - đọc truyện trực tuyến
+Nhóm 6 - Khoa CNTT- Học viện Hàng không Việt Nam - 010100086402 #FITVAA
