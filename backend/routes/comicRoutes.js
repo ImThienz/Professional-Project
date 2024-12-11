@@ -130,4 +130,18 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// API lấy truyện theo thể loại
+router.get("/category/:genre", async (req, res) => {
+  try {
+    const genre = req.params.genre; // Lấy thể loại từ URL
+    const comics = await Comic.find({ genre: { $in: [genre] } }); // Tìm truyện có chứa thể loại
+    if (comics.length === 0) {
+      return res.status(404).json({ message: `Không tìm thấy truyện nào thuộc thể loại: ${genre}` });
+    }
+    res.status(200).json(comics);
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server", error: error.message });
+  }
+});
+
 module.exports = router;

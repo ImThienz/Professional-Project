@@ -6,7 +6,7 @@ const comicSchema = new mongoose.Schema({
   author: String,
   price: Number,
   category_id: Number,
-  genre: String,
+  genre: [String],
   description: String,
   cover_image: String,
 });
