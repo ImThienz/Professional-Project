@@ -11,8 +11,11 @@ import { useState } from "react";
 import LoginSignup from "./Components/Header/LoginSignup";
 import UserProfile from "./Pages/User/Profile";
 import ContactPage from "./Pages/User/Contact";
-// import OrderHistory from "./Pages/User/UserOrder";
+// import OrderHistory from "./Pages/User/OrderHistory";
 import CartPage from "./Pages/CartPage";
+import Shipping from "./Pages/Order/Shipping";
+import PlaceOrder from "./Pages/Order/PlaceOrder";
+import Order from "./Pages/Order/Order";
 // import CategoryPage from './Pages/CategoryPage';
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminLogin from "./Pages/Admin/AdminLogin";
@@ -40,6 +43,10 @@ function App() {
         <Route path="/user/profile" element={<UserProfile />} />
         <Route path="/contact" element={<ContactPage />} />
         {/* <Route path="/order-history" element={<OrderHistory />} /> */}
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/placeorder" element={<PlaceOrder />} />
+        <Route path="/order/:id" element={<Order />} />
+
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />

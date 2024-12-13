@@ -1,7 +1,14 @@
 const express = require("express");
 const crypto = require("crypto");
 require("dotenv").config();
+const Order = require("../models/Order");
 const router = express.Router();
+const mongoose = require("mongoose");
+
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Cấu hình VNPay từ environment variables
 const vnp_TmnCode = process.env.VNP_TMN_CODE;
@@ -20,6 +27,7 @@ if (!vnp_TmnCode || !vnp_HashSecret || !vnp_Url || !vnp_ReturnUrl) {
 // Tạo URL thanh toán
 router.post("/create-payment-url", (req, res) => {
   const { amount, orderId, orderInfo } = req.body;
+  console.log("Creating payment for Order ID:", orderId);
   const date = new Date();
   const createDate = date.toISOString().slice(0, 19).replace(/T|-|:/g, "");
   const ipAddr = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
@@ -65,7 +73,10 @@ const formatCurrency = (amount) => {
 };
 
 // Xử lý kết quả thanh toán
-router.get("/vnpay_return", (req, res) => {
+router.get("/vnpay_return", async (req, res) => {
+  console.log("VNPay callback hit");
+  console.log("VNPay Query Params:", req.query);
+
   try {
     const vnp_Params = req.query;
     console.log("VNPay Return Params:", vnp_Params);
@@ -83,7 +94,7 @@ router.get("/vnpay_return", (req, res) => {
 
     const signData = new URLSearchParams(sortedParams).toString();
     const checkHash = crypto
-      .createHmac("sha512", vnp_HashSecret)
+      .createHmac("sha512", process.env.VNP_HASH_SECRET)
       .update(signData)
       .digest("hex");
 
@@ -108,6 +119,24 @@ router.get("/vnpay_return", (req, res) => {
 
       if (transactionStatus === "00") {
         // Thanh toán thành công
+        const orderId = vnp_Params["vnp_TxnRef"];
+        console.log("Mã đơn hàng từ VNPay:", orderId);
+
+        const order = await Order.findById(orderId); 
+        if (!order) {
+          console.error("Không tìm thấy đơn hàng.");
+          return res.status(404).send("Không tìm thấy đơn hàng.");
+        }
+
+        console.log("Thông tin đơn hàng:", order);
+
+        // Cập nhật trạng thái đơn hàng
+        console.log("Order found:", order);
+        order.isPaid = true;
+        order.paidAt = new Date();
+        await order.save();
+        console.log("Order updated:", order);
+
         res.send(`
           <html>
             <head>

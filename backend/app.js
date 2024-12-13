@@ -51,6 +51,9 @@ app.use("/api/admin/contact-requests", contactRoutes); // chỉ Admin mới có 
 const paymentRoutes = require("./routes/paymentRoutes");
 app.use("/api/vnpay", paymentRoutes);
 
+const orderRoutes = require("./routes/orderRoutes");
+app.use("/api/orders", orderRoutes);
+
 const cartRoutes = require("./routes/cartRoutes");
 app.use("/api/cart", cartRoutes);
 

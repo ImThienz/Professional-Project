@@ -94,6 +94,10 @@ frontend/
 │	│		│		└── index.js / .css
 │	│		├── Home/
 │	│		│		└── Index.js / .css
+│	│		├── Order/
+│	│		│		├── Order.js
+│	│		│		├── PlaceOrder.js / .css
+│	│		│		└── Shipping.js
 │	│		├── Purchase/
 │	│		│		└── index.js
 │	│		└── User/
@@ -117,6 +121,7 @@ backend/
 ├── controllers/
 │   ├── adminControl.js
 │   └── contactController.js
+│   └── orderController.js
 ├── middlewares/
 │   ├── authMiddleware.js
 │   ├── checkAdminRole.js
@@ -127,6 +132,7 @@ backend/
 │   ├── Chapter.js
 │   ├── Comic.js
 │   ├── ContactRequest.js
+│   ├── Order.js
 │   ├── Rating.js
 │   ├── User.js
 │   ├── UserChapterPayment.js
@@ -144,6 +150,7 @@ backend/
 │   ├── chapterRoutes.js
 │   ├── comicRoutes.js
 │   ├── contactRoutes.js
+│   ├── orderRoutes.js
 │   ├── paymentRoutes.js
 │   ├── ratingRoutes.js
 │   ├── userRoutes.js
@@ -164,6 +171,11 @@ npm start
 
 [Contact:]
 npm install express nodemailer mongoose
+
+[Cài lại module trong backend sau khi clone từ github về:]
+Remove-Item -Recurse -Force .\node_modules
+npm i
+npm start
 
 -----------------------------
 	CMD:

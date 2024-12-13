@@ -115,25 +115,14 @@ const CartPage = () => {
     }
   };
 
-  const handlePayment = async () => {
-    const response = await fetch(
-      "http://localhost:8080/api/vnpay/create-payment-url",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: calculateDiscountedTotal(),
-          orderId: Date.now(),
-          orderInfo: "Thanh toán đơn hàng",
-        }),
-      }
-    );
-
-    const { paymentUrl } = await response.json();
-    if (paymentUrl) {
-      window.location.href = paymentUrl;
-    }
-  };
+  const handleCheckout = () => {
+    navigate("/shipping", {
+      state: {
+        discountedTotal: calculateDiscountedTotal(), // Tổng tiền đã giảm
+        voucher, 
+      },
+    });  
+  };  
 
   if (loading) return <div>Loading...</div>;
   if (!cart.items || cart.items.length === 0) return <div>Giỏ hàng trống!</div>;
@@ -212,7 +201,7 @@ const CartPage = () => {
             {formatPrice(calculateDiscountedTotal())} VND
           </p>
         )}
-        <button onClick={handlePayment}>Thanh toán</button>
+        <button onClick={handleCheckout}>Thanh toán</button>
       </div>
     </div>
   );
