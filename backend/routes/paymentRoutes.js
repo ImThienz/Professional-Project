@@ -3,12 +3,6 @@ const crypto = require("crypto");
 require("dotenv").config();
 const Order = require("../models/Order");
 const router = express.Router();
-const mongoose = require("mongoose");
-
-mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Cấu hình VNPay từ environment variables
 const vnp_TmnCode = process.env.VNP_TMN_CODE;
