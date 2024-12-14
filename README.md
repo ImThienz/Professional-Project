@@ -6,6 +6,6 @@ Remove-Item -Recurse -Force .\node_modules
 npm i
 npm start  
 
-[frontend:]
-npm i
+[frontend:]  
+npm i  
 npm start
