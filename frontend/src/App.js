@@ -11,7 +11,7 @@ import { useState } from "react";
 import LoginSignup from "./Components/Header/LoginSignup";
 import UserProfile from "./Pages/User/Profile";
 import ContactPage from "./Pages/User/Contact";
-// import OrderHistory from "./Pages/User/OrderHistory";
+import MyOrders from "./Pages/User/MyOrder";
 import CartPage from "./Pages/CartPage";
 import Shipping from "./Pages/Order/Shipping";
 import PlaceOrder from "./Pages/Order/PlaceOrder";
@@ -46,6 +46,7 @@ function App() {
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/placeorder" element={<PlaceOrder />} />
         <Route path="/order/:id" element={<Order />} />
+        <Route path="/myorders" element={<MyOrders />} />;
 
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/admin/login" element={<AdminLogin />} />

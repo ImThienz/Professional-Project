@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import userProfileImage from "../../Assets/user-profile.jpg";
 import formUserProfile from "../../Assets/form-user-profile.jpg";
@@ -92,13 +92,9 @@ const UserProfile = () => {
       </form>
       {message && <p className="message">{message}</p>}
 
-      {/* <button
-        type="button"
-        className="btn btn-success"
-        onClick={() => navigate("/order-history")}
-      >
+      <Link to="/myorders" className="btn btn-success">
         Đơn hàng của tôi
-      </button> */}
+      </Link>
     </div>
   );
 };
