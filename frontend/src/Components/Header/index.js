@@ -62,7 +62,7 @@ const Header = () => {
         }}>
           <div className="container d-flex align-items-center justify-content-between">
             {/* Thêm logo admin */}
-            <Link to="/admin/login">
+            <Link to="/admin/dashboard">
               <img
                 src={adminLogo} 
                 alt="Admin Logo"
