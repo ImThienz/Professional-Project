@@ -12,13 +12,15 @@ const authMiddleware = async (req, res, next) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Token được xác thực:", verified);
 
-    req.user = await User.findById(verified.id);
+    // Sử dụng `userId` từ token
+    req.user = await User.findById(verified.userId);
     if (!req.user) {
-      console.error("Không tìm thấy user từ token:", verified.id);
+      console.error("Không tìm thấy user từ token:", verified.userId);
       return res.status(401).json({ error: "User not found" });
     }
 
     console.log("User được xác thực:", req.user._id);
+    console.log("User trong middleware:", req.user);
     next();
   } catch (err) {
     console.error("Token không hợp lệ:", err.message);
