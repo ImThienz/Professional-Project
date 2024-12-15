@@ -8,7 +8,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token") || localStorage.getItem("adminToken");
 
       if (!token) {
         alert("Bạn chưa đăng nhập. Vui lòng đăng nhập.");
