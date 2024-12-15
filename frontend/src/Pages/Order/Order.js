@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 const Order = () => {
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  console.log("User Info từ localStorage:", userInfo);
   const { id } = useParams();
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
     const fetchOrder = async () => {
-      const token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
+
+      if (!token) {
+        token = localStorage.getItem("adminToken"); // Kiểm tra token admin nếu không có token user
+        console.log("Token được gửi:", token);
+      }
 
       if (!token) {
         alert("Bạn chưa đăng nhập. Vui lòng đăng nhập.");
@@ -62,6 +69,39 @@ const Order = () => {
     }
   };
 
+  const deliverHandler = async () => {
+    try {
+      const token = localStorage.getItem("adminToken");
+      if (!token) {
+        alert("Bạn không có quyền thực hiện thao tác này.");
+        return;
+      }
+      console.log("Order ID gửi lên:", order._id);
+
+      const response = await fetch(
+        `http://localhost:8080/api/orders/${order._id}/deliver`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Lỗi khi cập nhật trạng thái giao hàng.");
+      }
+  
+      const updatedOrder = await response.json();
+      setOrder(updatedOrder);
+      alert("Đã đánh dấu là đã giao hàng.");
+    } catch (error) {
+      console.error("Error updating delivery status:", error);
+      alert("Đã xảy ra lỗi. Vui lòng thử lại.");
+    }
+  };  
+
   if (!order) return <p>Loading...</p>;
 
   return (
@@ -80,6 +120,9 @@ const Order = () => {
                 <th className="py-2 px-4 text-center">Số lượng</th>
                 <th className="py-2 px-4">Đơn giá</th>
                 <th className="py-2 px-4">Tổng cộng</th>
+                <th className="py-2 px-4">Ngày tạo</th>
+                <th className="py-2 px-4">Thanh toán</th>
+                <th className="py-2 px-4">Giao hàng</th>
               </tr>
             </thead>
             <tbody>
@@ -113,6 +156,15 @@ const Order = () => {
                   <td className="py-2 px-4 text-center">
                     {(item.qty * item.price).toLocaleString()} VND
                   </td>
+                  <td className="py-2 px-4 text-center">
+                    {new Date(order.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="py-2 px-4 text-center">
+                    {order.isPaid ? "Đã thanh toán" : "Chưa thanh toán"}
+                  </td>
+                  <td className="py-2 px-4 text-center">
+                    {order.isDelivered ? "Đã giao hàng" : "Chưa giao hàng"}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -125,6 +177,10 @@ const Order = () => {
         <h2 className="text-2xl font-semibold mb-4">Tóm tắt đơn hàng</h2>
         <div className="p-4 bg-dark text-white rounded shadow mb-4">
           <ul className="list-unstyled fs-5">
+            <li className="d-flex justify-content-between mb-3">
+              <span className="fw-bold">Mã giảm giá:</span>
+              <span>{order.voucherCode || "Không có"}</span>
+            </li>
             <li className="d-flex justify-content-between mb-3">
               <span className="fw-bold">Mã đơn hàng:</span>
               <span>{order._id}</span>
@@ -163,6 +219,18 @@ const Order = () => {
               Thanh toán ngay
             </button>
           )}
+
+          {order.isPaid && !order.isDelivered && userInfo && userInfo.isAdmin && (
+            <div className="mt-4">
+              <button
+                onClick={deliverHandler}
+                className="w-full py-2 bg-pink-500 text-white rounded hover:bg-pink-600"
+              >
+                Đánh dấu là đã giao hàng
+              </button>
+            </div>
+          )}
+
         </div>
       </div>
 

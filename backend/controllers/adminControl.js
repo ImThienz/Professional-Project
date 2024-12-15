@@ -34,6 +34,7 @@ exports.loginAdmin = async (req, res) => {
         id: user._id,
         username: user.username,
         role: user.role,
+        isAdmin: user.role === "admin",
       },
     });
   } catch (error) {
