@@ -22,6 +22,16 @@ const AdminLogin = () => {
       // Lưu token
       localStorage.setItem("adminToken", response.data.token);
 
+      // Lưu thông tin user (bao gồm isAdmin) vào localStorage
+      localStorage.setItem(
+        "userInfo",
+        JSON.stringify({
+          userId: response.data.user.id,
+          username: response.data.user.username,
+          isAdmin: response.data.user.role === "admin", // Xác định admin
+        })
+      );
+
       // Chuyển hướng đến trang admin
       navigate("/admin/dashboard");
     } catch (err) {

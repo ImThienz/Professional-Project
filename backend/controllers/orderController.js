@@ -112,12 +112,14 @@ const getOrderById = async (req, res) => {
     }
 
     // Kiểm tra quyền truy cập
-    if (req.user.role !== "admin" && order.user._id.toString() !== req.user._id.toString()) {
+    const isAdmin = req.user.role === "admin";
+    if (!isAdmin && order.user._id.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "Không có quyền truy cập đơn hàng này" });
     }
 
     res.status(200).json(order);
   } catch (error) {
+    console.error("Lỗi khi lấy thông tin đơn hàng:", error.message);
     res.status(500).json({ message: `Lỗi server: ${error.message}` });
   }
 };
@@ -128,13 +130,16 @@ const getOrders = async (req, res) => {
     let orders;
 
     if (req.user.role === "admin") {
+      // Admin có thể xem tất cả đơn hàng
       orders = await Order.find().populate("user", "username email").populate("orderItems.product");
     } else {
+      // Người dùng chỉ có thể xem đơn hàng của chính mình
       orders = await Order.find({ user: req.user._id }).populate("orderItems.product");
     }
 
     res.status(200).json(orders);
   } catch (error) {
+    console.error("Lỗi khi lấy danh sách đơn hàng:", error.message);
     res.status(500).json({ message: `Lỗi server: ${error.message}` });
   }
 };
@@ -164,4 +169,24 @@ const updatePaymentStatus = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getOrderById, getOrders, updatePaymentStatus };
+const updateDeliveryStatus = async (req, res) => {
+  console.log("ID từ request:", req.params.id);
+  try {
+    const order = await Order.findById(req.params.id);
+
+    if (!order) {
+      return res.status(404).json({ message: "Không tìm thấy đơn hàng." });
+    }
+
+    order.isDelivered = true;
+    order.deliveredAt = new Date();
+
+    const updatedOrder = await order.save();
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    console.error("Lỗi khi cập nhật trạng thái giao hàng:", error.message);
+    res.status(500).json({ message: "Lỗi server." });
+  }
+};
+
+module.exports = { createOrder, getOrderById, getOrders, updatePaymentStatus, updateDeliveryStatus };

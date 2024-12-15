@@ -25,6 +25,8 @@ import ComicList from "./Pages/Chapter/ComicList";
 import ChaptersPage from "./Pages/Chapter/ChaptersPage";
 import ChapterManagement from "./Pages/Admin/ChapterManagement";
 import VoucherManager from "./Pages/Admin/VoucherManager";
+import AdminOrderList from "./Pages/Admin/AdminOrderList";
+
 function App() {
   return (
     <BrowserRouter>
@@ -55,6 +57,7 @@ function App() {
         <Route path="/admin/manageComics" element={<ManageComics />} />
         <Route path="/admin/manageChapters" element={<ChapterManagement />} />
         <Route path="/admin/manageVouchers" element={<VoucherManager />} />
+        <Route path="/admin/orders" element={<AdminOrderList />} />
         {/* Route hiển thị danh sách ảnh trong chapter */}
         <Route path="/truyen" element={<ComicList />} />
         <Route path="/comics/:id/chapters" element={<ChaptersPage />} />

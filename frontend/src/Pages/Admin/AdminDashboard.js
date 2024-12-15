@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
@@ -129,6 +129,12 @@ const AdminDashboard = () => {
           className="bg-blue-500 text-white px-4 py-2 rounded"
         >
           Chỉnh sửa Vouchers
+        </button>
+
+        <button>
+          <Link to='/admin/orders' className="bg-blue-500 text-white px-4 py-2 rounded">
+            Quản lý đơn hàng
+          </Link>
         </button>
       </div>
 
