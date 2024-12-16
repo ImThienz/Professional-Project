@@ -129,7 +129,6 @@ const HomePage = () => {
       {/* Slider Section */}
       {!genre && (
         <div className="col-md-9 productRow">
-          {/* Phần tiêu đề hiển thị đầu tiên */}
           <div className="d-flex align-items-center">
             <div className="info w-75">
               <h2 className="mb-0 hd mt-4">BEST SELLERS</h2>
@@ -137,53 +136,51 @@ const HomePage = () => {
                 Truyện bán chạy số 1 tại Việt Nam!!!
               </p>
             </div>
+
+            <button
+              className="viewAllBtn ml-auto"
+            >
+              Xem tất cả <FaArrowRight />
+            </button>
           </div>
 
-          {/* Kiểm tra token để hiển thị nội dung */}
-          {!token ? (
-            // Thông báo yêu cầu đăng nhập
-            <div className="alert alert-warning mt-4">
-              <h4 className="mb-0">Bạn cần đăng nhập để xem các mẫu truyện bán chạy!</h4>
-            </div>
-          ) : (
-            // Slider hiển thị khi có token
-            <div className="product_row w-100 mt-4">
-              <Swiper
-                slidesPerView={3}
-                spaceBetween={30}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Navigation]}
-                className="mySwiper"
-              >
-                {bestSellers.map((item) => (
-                  <SwiperSlide
-                    key={item.comic._id}
-                    onClick={() => navigate(`/comics/${item.comic._id}/reviews`)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <div className="item productItem">
-                      <div className="imgWrapper">
-                        <img
-                          src={`http://localhost:8080${item.comic.cover_image}`}
-                          alt={item.comic.title}
-                          className="w-100"
-                        />
-                        <h4>{item.comic.title}</h4>
-                        <span className="text-success d-block">
-                          Đã bán: {item.qty} bộ
-                        </span>
-                        <Rating name="read-only" value={4} readOnly />
-                      </div>
+          <div className="product_row w-100 mt-4">
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={30}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Navigation]}
+              className="mySwiper"
+            >
+              {bestSellers.map((item) => (
+                <SwiperSlide
+                  key={item.comic._id}
+                  onClick={() => navigate(`/comics/${item.comic._id}/reviews`)} // Điều hướng khi nhấp vào
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="item productItem">
+                    <div className="imgWrapper">
+                      <img
+                        src={`http://localhost:8080${item.comic.cover_image}`}
+                        alt={item.comic.title}
+                        className="w-100"
+                      />
+                      <h4>{item.comic.title}</h4>
+                      <span className="text-success d-block">
+                        Đã bán: {item.qty} bộ
+                      </span>
+                      <Rating name="read-only" value={4} readOnly />
                     </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          )}
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       )}
+
     </div>
   );
 };

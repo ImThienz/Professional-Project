@@ -1,6 +1,7 @@
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const Voucher = require("../models/Voucher");
+const Comic = require("../models/Comic");
 
 // Tạo đơn hàng mới
 const createOrder = async (req, res) => {
@@ -189,4 +190,44 @@ const updateDeliveryStatus = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getOrderById, getOrders, updatePaymentStatus, updateDeliveryStatus };
+const getBestSellers = async (req, res) => {
+  try {
+    const orders = await Order.find().populate("orderItems.product");
+
+    if (!orders) {
+      return res.status(404).json({ message: "Không có đơn hàng nào được tìm thấy." });
+    }
+
+    const comicSales = {};
+
+    // Tính số lượng bán của từng truyện
+    orders.forEach((order) => {
+      order.orderItems.forEach((item) => {
+        if (comicSales[item.product._id]) {
+          comicSales[item.product._id].qty += item.qty;
+        } else {
+          comicSales[item.product._id] = {
+            comic: item.product,
+            qty: item.qty,
+          };
+        }
+      });
+    });
+
+    // Lấy danh sách truyện bán chạy, sắp xếp giảm dần theo số lượng bán
+    const bestSellers = Object.values(comicSales)
+      .sort((a, b) => b.qty - a.qty)
+      .map((item) => ({
+        comic: item.comic,
+        qty: item.qty,
+      }))
+      .slice(0, 10); // Lấy top 5
+
+    res.status(200).json(bestSellers);
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách truyện bán chạy:", error.message);
+    res.status(500).json({ message: "Lỗi server." });
+  }
+};
+
+module.exports = { createOrder, getOrderById, getOrders, updatePaymentStatus, updateDeliveryStatus, getBestSellers };

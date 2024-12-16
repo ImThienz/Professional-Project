@@ -1,6 +1,9 @@
 const express = require("express");
 const Comic = require("../models/Comic");
 const Chapter = require("../models/Chapter"); // Thêm nếu cần sử dụng Chapter model
+const { createReview } = require("../controllers/comicController");
+const authMiddleware = require("../middlewares/authMiddleware");
+
 const router = express.Router();
 
 // API để lấy tất cả comics
@@ -12,6 +15,9 @@ router.get("/getAll", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Đánh giá comic
+router.post("/:id/reviews", authMiddleware, createReview);
 
 // Route tìm kiếm truyện theo tiêu đề
 router.get('/search', async (req, res) => {

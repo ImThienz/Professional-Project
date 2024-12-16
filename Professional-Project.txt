@@ -59,7 +59,7 @@ frontend/
 ├── src/
 │   ├── Assets/
 │   │		└── ...
-│   └── Components/
+│   ├── Components/
 │	│		├── Footer/
 │	│		│		└── index.js / .css
 │	│		└── Header/
@@ -72,15 +72,14 @@ frontend/
 │	│		│		└── index.js / .css
 │	│		└── HomeBanner/
 │	│				└── index.js
-│   └── Pages/
+│   ├── Pages/
 │	│		├── Admin/
 │	│		│		├── AdminDashboard.js / .css
 │	│		│		├── AdminLogin.js
+│	│		│		├── AdminOrderList.js
 │	│		│		├── ChapterManagement.js / .css
 │	│		│		├── ManageComics.js / .css
 │	│		│		└── VoucherManager.js / .css
-│	│		├── Category/
-│	│		│		└── index.js
 │	│		├── CartPage/
 │	│		│		└── index.js / .css
 │	│		├── Chapter/
@@ -95,6 +94,7 @@ frontend/
 │	│		├── Home/
 │	│		│		└── Index.js / .css
 │	│		├── Order/
+│	│		│		├── ComicReview.js / .css
 │	│		│		├── Order.js
 │	│		│		├── PlaceOrder.js / .css
 │	│		│		└── Shipping.js
@@ -102,7 +102,10 @@ frontend/
 │	│		│		└── index.js
 │	│		└── User/
 │	│				├── Contact.js / .css
+│	│				├── MyOrder.js / .css
 │	│				└── Profile.js / .css
+│   ├── services/
+│	│		└── api.js
 │   ├── App.css
 │   ├── App.js
 │   └── index.js
@@ -120,7 +123,8 @@ backend/
 │   └── default.json
 ├── controllers/
 │   ├── adminControl.js
-│   └── contactController.js
+│   ├── comicController.js
+│   ├── contactController.js
 │   └── orderController.js
 ├── middlewares/
 │   ├── authMiddleware.js
@@ -128,7 +132,6 @@ backend/
 │   └── upload.js
 ├── models/
 │   ├── Cart.js
-│   ├── Category.js
 │   ├── Chapter.js
 │   ├── Comic.js
 │   ├── ContactRequest.js
@@ -145,7 +148,6 @@ backend/
 │   ├── adminRoutes.js
 │   ├── adminVoucherRoutes.js
 │   ├── cartRoutes.js
-│   ├── categoryRoutes.js
 │   ├── chapterPaymentRoutes.js
 │   ├── chapterRoutes.js
 │   ├── comicRoutes.js

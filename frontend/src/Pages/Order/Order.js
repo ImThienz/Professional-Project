@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import Rating from "@mui/material/Rating";
 
 const Order = () => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   console.log("User Info từ localStorage:", userInfo);
   const { id } = useParams();
   const [order, setOrder] = useState(null);
+  const [reviews, setReviews] = useState({});
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -101,6 +103,48 @@ const Order = () => {
       alert("Đã xảy ra lỗi. Vui lòng thử lại.");
     }
   };  
+
+  const handleReviewChange = (productId, field, value) => {
+    setReviews((prev) => ({
+      ...prev,
+      [productId]: { ...prev[productId], [field]: value },
+    }));
+  };
+
+  const submitReview = async (productId) => {
+    const review = reviews[productId];
+    if (!review || !review.rating || !review.comment) {
+      alert("Vui lòng nhập đánh giá và bình luận.");
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) return alert("Bạn cần đăng nhập để đánh giá.");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/comics/${productId}/reviews`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(review),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Lỗi khi gửi đánh giá.");
+      }
+
+      alert("Đánh giá đã được gửi!");
+      setReviews((prev) => ({ ...prev, [productId]: { rating: 0, comment: "" } }));
+    } catch (error) {
+      console.error("Error submitting review:", error);
+    }
+    alert("Bạn đã đánh giá bộ này rồi, hihi !")
+  };
 
   if (!order) return <p>Loading...</p>;
 
@@ -230,6 +274,30 @@ const Order = () => {
               </button>
             </div>
           )}
+
+          {/* Thêm phần đánh giá */}
+          <div className="md:w-1/3">
+            <h2>Đánh giá sản phẩm</h2>
+            {order.isPaid &&
+              order.orderItems.map((item) => (
+                <div key={item.product._id} className="mb-4">
+                  <h3>{item.product.title}</h3>
+                  <Rating
+                    value={reviews[item.product._id]?.rating || 0}
+                    onChange={(e, newValue) =>
+                      handleReviewChange(item.product._id, "rating", newValue)
+                    }
+                  />
+                  <textarea
+                    value={reviews[item.product._id]?.comment || ""}
+                    onChange={(e) =>
+                      handleReviewChange(item.product._id, "comment", e.target.value)
+                    }
+                  />
+                  <button onClick={() => submitReview(item.product._id)}>Gửi đánh giá</button>
+                </div>
+              ))}
+          </div>
 
         </div>
       </div>

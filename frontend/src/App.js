@@ -16,6 +16,7 @@ import CartPage from "./Pages/CartPage";
 import Shipping from "./Pages/Order/Shipping";
 import PlaceOrder from "./Pages/Order/PlaceOrder";
 import Order from "./Pages/Order/Order";
+import ComicReviews from "./Pages/Order/ComicReviews";
 // import CategoryPage from './Pages/CategoryPage';
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import AdminLogin from "./Pages/Admin/AdminLogin";
@@ -44,11 +45,11 @@ function App() {
         <Route path="/signup" element={<LoginSignup />} />
         <Route path="/user/profile" element={<UserProfile />} />
         <Route path="/contact" element={<ContactPage />} />
-        {/* <Route path="/order-history" element={<OrderHistory />} /> */}
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/placeorder" element={<PlaceOrder />} />
         <Route path="/order/:id" element={<Order />} />
         <Route path="/myorders" element={<MyOrders />} />;
+        <Route path="/comics/:id/reviews" element={<ComicReviews />} />
 
         <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/admin/login" element={<AdminLogin />} />
