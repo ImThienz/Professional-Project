@@ -85,9 +85,9 @@ const Navigation = () => {
                       <GrAttraction /> &nbsp; Adventure{" "}
                     </Link>
                   </ul>
-                  <ul className="ml-3"onClick={() => handleCategoryClick("Isekai")}>
+                  <ul className="ml-3"onClick={() => handleCategoryClick("Supernatural")}>
                     <Link to="#">
-                      <GiHumanTarget /> &nbsp; Isekai{" "}
+                      <GiHumanTarget /> &nbsp; Supernatural{" "}
                     </Link>
                   </ul>
                   <ul className="ml-3"onClick={() => handleCategoryClick("Fantasy")}>
@@ -95,9 +95,14 @@ const Navigation = () => {
                       <LiaFantasyFlightGames /> &nbsp; Fantasy{" "}
                     </Link>
                   </ul>
-                  <ul className="ml-3"onClick={() => handleCategoryClick("Mecha")}>
+                  <ul className="ml-3"onClick={() => handleCategoryClick("Dark Fantasy")}>
                     <Link to="#">
-                      <GiMechaMask /> &nbsp; Mecha{" "}
+                      <LiaFantasyFlightGames /> &nbsp; Dark Fantasy{" "}
+                    </Link>
+                  </ul>
+                  <ul className="ml-3"onClick={() => handleCategoryClick("Thriller")}>
+                    <Link to="#">
+                      <GiMechaMask /> &nbsp; Thriller{" "}
                     </Link>
                   </ul>
                 </ul>
@@ -123,9 +128,9 @@ const Navigation = () => {
                   <GrAttraction /> &nbsp; Adventure{" "}
                 </Link>
               </li>
-              <li className="list-inline-item"onClick={() => handleCategoryClick("Isekai")}>
+              <li className="list-inline-item"onClick={() => handleCategoryClick("Supernatural")}>
                 <Link to="#">
-                  <GiHumanTarget /> &nbsp; Isekai{" "}
+                  <GiHumanTarget /> &nbsp; Supernatural{" "}
                 </Link>
               </li>
               <li className="list-inline-item"onClick={() => handleCategoryClick("Fantasy")}>
@@ -133,9 +138,14 @@ const Navigation = () => {
                   <LiaFantasyFlightGames /> &nbsp; Fantasy{" "}
                 </Link>
               </li>
-              <li className="list-inline-item"onClick={() => handleCategoryClick("Mecha")}>
+              <li className="list-inline-item"onClick={() => handleCategoryClick("Dark Fantasy")}>
                 <Link to="#">
-                  <GiMechaMask /> &nbsp; Mecha{" "}
+                  <LiaFantasyFlightGames /> &nbsp; Dark Fantasy{" "}
+                </Link>
+              </li>
+              <li className="list-inline-item"onClick={() => handleCategoryClick("Thriller")}>
+                <Link to="#">
+                  <GiMechaMask /> &nbsp; Thriller{" "}
                 </Link>
               </li>
 
@@ -151,37 +161,6 @@ const Navigation = () => {
             </ul>
           </div>
         </div>
-
-        {/* Comics Display */}
-        {/* <div className="mt-4">
-          {error ? (
-            <p style={{ color: "red" }}>{error}</p>
-          ) : comics.length === 0 ? (
-            <p>Chưa có truyện nào thuộc thể loại này.</p>
-          ) : (
-            <div className="comics-list">
-              {comics.map(comic => (
-                <div
-                  key={comic._id}
-                  className="comic-item"
-                  onClick={() => navigate(`/comics/${comic._id}`)}
-                >
-                  <img
-                    src={`http://localhost:8080${comic.cover_image}`} // URL đầy đủ từ API
-                    alt={comic.title}
-                    className="comic-image"
-                    onError={(e) => {
-                      console.error('Error loading image:', e.target.src);
-                      e.target.src = '/placeholder.jpg';
-                    }}
-                  />
-                  <h2 className="comic-title">{comic.title}</h2>
-                </div>
-              ))}
-            </div>
-          )}
-        </div> */}
-
       </div>
     </nav>
   );
