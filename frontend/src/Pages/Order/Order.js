@@ -271,33 +271,60 @@ const Order = () => {
                 className="w-full py-2 bg-pink-500 text-white rounded hover:bg-pink-600"
               >
                 Đánh dấu là đã giao hàng
-              </button>
+              </button><hr/>
             </div>
           )}
 
-          {/* Thêm phần đánh giá */}
+          {/* Phần đánh giá sản phẩm */}
           <div className="md:w-1/3">
-            <h2>Đánh giá sản phẩm</h2>
-            {order.isPaid &&
-              order.orderItems.map((item) => (
-                <div key={item.product._id} className="mb-4">
-                  <h3>{item.product.title}</h3>
-                  <Rating
-                    value={reviews[item.product._id]?.rating || 0}
-                    onChange={(e, newValue) =>
-                      handleReviewChange(item.product._id, "rating", newValue)
-                    }
-                  />
-                  <textarea
-                    value={reviews[item.product._id]?.comment || ""}
-                    onChange={(e) =>
-                      handleReviewChange(item.product._id, "comment", e.target.value)
-                    }
-                  />
-                  <button onClick={() => submitReview(item.product._id)}>Gửi đánh giá</button>
-                </div>
-              ))}
+            {order.isPaid ? (
+              <>
+                <h2>Đánh giá sản phẩm</h2>
+                {order.orderItems.map((item) => (
+                  <div key={item.product._id} className="mb-4">
+                    <h3>{item.product.title}</h3>
+                    <Rating
+                      value={reviews[item.product._id]?.rating || 0}
+                      onChange={(e, newValue) =>
+                        handleReviewChange(item.product._id, "rating", newValue)
+                      }
+                    />
+                    <textarea
+                      value={reviews[item.product._id]?.comment || ""}
+                      onChange={(e) =>
+                        handleReviewChange(item.product._id, "comment", e.target.value)
+                      }
+                      placeholder="Viết đánh giá của bạn ở đây..."
+                      style={{
+                        width: "100%",
+                        height: "80px",
+                        padding: "10px",
+                        borderRadius: "5px",
+                        border: "1px solid #ddd",
+                      }}
+                    />
+                    <button
+                      onClick={() => submitReview(item.product._id)}
+                      style={{
+                        marginTop: "10px",
+                        padding: "10px 20px",
+                        border: "none",
+                        borderRadius: "5px",
+                        backgroundColor: "#007bff",
+                        color: "white",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Gửi đánh giá
+                    </button>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <p><hr/>Thanh toán đi, rồi để lại Đánh giá tích cực cho sản phẩm của sốp Manga Comic nhé!</p>
+            )}
           </div>
+
 
         </div>
       </div>
