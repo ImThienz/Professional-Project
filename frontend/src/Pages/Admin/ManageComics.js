@@ -130,7 +130,7 @@ const ManageComics = () => {
 
   return (
     <div className="manage-comics-container">
-      <h1>Manage Comics</h1>
+      <h1>Quản lý Truyện tranh</h1>
       <button
         onClick={() => navigate("/admin/dashboard")}
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
@@ -141,7 +141,7 @@ const ManageComics = () => {
         <input
           type="text"
           name="title"
-          placeholder="Title"
+          placeholder="tiêu đề"
           value={form.title}
           onChange={handleInputChange}
           required
@@ -149,7 +149,7 @@ const ManageComics = () => {
         <input
           type="text"
           name="author"
-          placeholder="Author"
+          placeholder="tác giả"
           value={form.author}
           onChange={handleInputChange}
           required
@@ -157,7 +157,7 @@ const ManageComics = () => {
         <input
           type="number"
           name="price"
-          placeholder="Price"
+          placeholder="giá"
           value={form.price}
           onChange={handleInputChange}
           required
@@ -165,13 +165,13 @@ const ManageComics = () => {
         <input
           type="text"
           name="genre"
-          placeholder="Genre"
+          placeholder="thể loại"
           value={form.genre}
           onChange={handleInputChange}
         />
         <textarea
           name="description"
-          placeholder="Description"
+          placeholder="mô tả"
           value={form.description}
           onChange={handleInputChange}
         />
@@ -183,10 +183,12 @@ const ManageComics = () => {
             className="preview-image"
           />
         )}
-        <button type="submit">{editingComic ? "Update" : "Add"} Comic</button>
+        <button type="submit">
+          {editingComic ? "Cập nhật" : "Thêm"} Truyện
+        </button>
       </form>
 
-      <h2>Comic List</h2>
+      <h2>Danh sách truyện</h2>
       <div className="comic-list">
         {comics.map((comic) => (
           <div key={comic._id} className="comic-card">
@@ -197,8 +199,8 @@ const ManageComics = () => {
             />
             <h3>{comic.title}</h3>
             <p>{comic.description}</p>
-            <button onClick={() => handleEdit(comic)}>Edit</button>
-            <button onClick={() => handleDelete(comic._id)}>Delete</button>
+            <button onClick={() => handleEdit(comic)}>Chỉnh sửa</button>
+            <button onClick={() => handleDelete(comic._id)}>Xóa</button>
           </div>
         ))}
       </div>

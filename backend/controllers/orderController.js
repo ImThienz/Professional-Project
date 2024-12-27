@@ -9,7 +9,9 @@ const createOrder = async (req, res) => {
     console.log("Dữ liệu nhận từ frontend:", req.body);
 
     // Bước 1: Lấy giỏ hàng
-    const cart = await Cart.findOne({ userId: req.user._id }).populate("items.productId");
+    const cart = await Cart.findOne({ userId: req.user._id }).populate(
+      "items.productId"
+    );
     if (!cart || cart.items.length === 0) {
       console.error("Giỏ hàng rỗng hoặc không tìm thấy.");
       return res.status(400).json({ message: "Giỏ hàng rỗng." });
@@ -28,7 +30,10 @@ const createOrder = async (req, res) => {
     console.log("Danh sách sản phẩm trong đơn hàng:", orderItems);
 
     // Bước 3: Tính tổng giá ban đầu
-    const baseTotalPrice = orderItems.reduce((sum, item) => sum + item.qty * item.price, 0);
+    const baseTotalPrice = orderItems.reduce(
+      (sum, item) => sum + item.qty * item.price,
+      0
+    );
     console.log("Tổng giá ban đầu:", baseTotalPrice);
 
     let finalTotalPrice = baseTotalPrice;
@@ -43,7 +48,9 @@ const createOrder = async (req, res) => {
         console.log("Thông tin voucher tìm thấy:", voucher);
 
         if (!voucher) {
-          console.error("Voucher không hợp lệ hoặc không tồn tại trong cơ sở dữ liệu.");
+          console.error(
+            "Voucher không hợp lệ hoặc không tồn tại trong cơ sở dữ liệu."
+          );
           return res.status(400).json({ message: "Voucher không hợp lệ." });
         }
 
@@ -57,11 +64,17 @@ const createOrder = async (req, res) => {
         finalTotalPrice -= discount;
         voucherCode = req.body.voucherCode;
 
-        console.log(`Voucher "${voucherCode}" áp dụng thành công. Giảm giá: ${discount}`);
-        
+        console.log(
+          `Voucher "${voucherCode}" áp dụng thành công. Giảm giá: ${discount}`
+        );
       } catch (voucherError) {
-        console.error("Lỗi khi tìm voucher trong cơ sở dữ liệu:", voucherError.message);
-        return res.status(500).json({ message: "Lỗi server khi kiểm tra voucher." });
+        console.error(
+          "Lỗi khi tìm voucher trong cơ sở dữ liệu:",
+          voucherError.message
+        );
+        return res
+          .status(500)
+          .json({ message: "Lỗi server khi kiểm tra voucher." });
       }
     } else {
       console.log("Không có voucher nào được gửi từ frontend.");
@@ -115,7 +128,9 @@ const getOrderById = async (req, res) => {
     // Kiểm tra quyền truy cập
     const isAdmin = req.user.role === "admin";
     if (!isAdmin && order.user._id.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: "Không có quyền truy cập đơn hàng này" });
+      return res
+        .status(403)
+        .json({ message: "Không có quyền truy cập đơn hàng này" });
     }
 
     res.status(200).json(order);
@@ -132,10 +147,14 @@ const getOrders = async (req, res) => {
 
     if (req.user.role === "admin") {
       // Admin có thể xem tất cả đơn hàng
-      orders = await Order.find().populate("user", "username email").populate("orderItems.product");
+      orders = await Order.find()
+        .populate("user", "username email")
+        .populate("orderItems.product");
     } else {
       // Người dùng chỉ có thể xem đơn hàng của chính mình
-      orders = await Order.find({ user: req.user._id }).populate("orderItems.product");
+      orders = await Order.find({ user: req.user._id }).populate(
+        "orderItems.product"
+      );
     }
 
     res.status(200).json(orders);
@@ -150,7 +169,8 @@ const updatePaymentStatus = async (req, res) => {
   try {
     const { vnp_TransactionStatus, vnp_TxnRef } = req.body;
 
-    if (vnp_TransactionStatus === "00") { // "00" là trạng thái thành công
+    if (vnp_TransactionStatus === "00") {
+      // "00" là trạng thái thành công
       const order = await Order.findById(vnp_TxnRef);
 
       if (!order) {
@@ -161,7 +181,9 @@ const updatePaymentStatus = async (req, res) => {
       order.paidAt = new Date();
       await order.save();
 
-      return res.status(200).json({ message: "Cập nhật trạng thái thanh toán thành công." });
+      return res
+        .status(200)
+        .json({ message: "Cập nhật trạng thái thanh toán thành công." });
     }
 
     res.status(400).json({ message: "Thanh toán không thành công." });
@@ -195,7 +217,9 @@ const getBestSellers = async (req, res) => {
     const orders = await Order.find().populate("orderItems.product");
 
     if (!orders) {
-      return res.status(404).json({ message: "Không có đơn hàng nào được tìm thấy." });
+      return res
+        .status(404)
+        .json({ message: "Không có đơn hàng nào được tìm thấy." });
     }
 
     const comicSales = {};
@@ -221,7 +245,7 @@ const getBestSellers = async (req, res) => {
         comic: item.comic,
         qty: item.qty,
       }))
-      .slice(0, 10); // Lấy top 5
+      .slice(0, 10); // Lấy top 10
 
     res.status(200).json(bestSellers);
   } catch (error) {
@@ -230,4 +254,11 @@ const getBestSellers = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getOrderById, getOrders, updatePaymentStatus, updateDeliveryStatus, getBestSellers };
+module.exports = {
+  createOrder,
+  getOrderById,
+  getOrders,
+  updatePaymentStatus,
+  updateDeliveryStatus,
+  getBestSellers,
+};

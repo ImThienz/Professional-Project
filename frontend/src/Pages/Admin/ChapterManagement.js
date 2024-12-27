@@ -144,7 +144,7 @@ const ChapterManagement = () => {
   return (
     <div className="manage-chapter">
       <div className="container">
-        <h1>Chapter Management</h1>
+        <h1>Quản lí chapter truyện</h1>
         <button
           onClick={() => navigate("/admin/dashboard")}
           className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
@@ -179,14 +179,14 @@ const ChapterManagement = () => {
         {/* Danh sách chapters */}
         {selectedComic && (
           <div className="chapter-section">
-            <h2>Chapters of {selectedComic.title}</h2>
+            <h2>Chương của {selectedComic.title}</h2>
             <table className="chapter-table">
               <thead>
-                <tr>
-                  <th>Chapter #</th>
-                  <th>Title</th>
+                {/* <tr>
+                  <th>Chương #</th>
+                  <th>Tiêu đề</th>
                   <th>Actions</th>
-                </tr>
+                </tr> */}
               </thead>
               <tbody>
                 {chapters.map((chapter) => (
@@ -198,13 +198,13 @@ const ChapterManagement = () => {
                         onClick={() => handleEdit(chapter)}
                         className="edit-button"
                       >
-                        Edit
+                        Chỉnh sửa
                       </button>
                       <button
                         onClick={() => handleDelete(chapter._id)}
                         className="delete-button"
                       >
-                        Delete
+                        Xóa
                       </button>
                     </td>
                   </tr>
@@ -217,10 +217,10 @@ const ChapterManagement = () => {
         {/* Form thêm/sửa chapter */}
         {selectedComic && (
           <div className="form-section">
-            <h2>{editingChapterId ? "Edit Chapter" : "Add New Chapter"}</h2>
+            <h2>{editingChapterId ? "Chỉnh sửa chương" : "Thêm chương mới"}</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="chapter_number">Chapter Number</label>
+                <label htmlFor="chapter_number">Chương số</label>
                 <input
                   type="number"
                   id="chapter_number"
@@ -232,7 +232,7 @@ const ChapterManagement = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="title">Chủ đề</label>
                 <input
                   type="text"
                   id="title"
@@ -242,7 +242,7 @@ const ChapterManagement = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="content">Content</label>
+                <label htmlFor="content">Nội dung</label>
                 <textarea
                   id="content"
                   value={form.content}
@@ -253,7 +253,7 @@ const ChapterManagement = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="new-image">Add Image URL</label>
+                <label htmlFor="new-image">Thêm hình ảnh</label>
                 <input
                   type="text"
                   id="new-image"
@@ -266,7 +266,7 @@ const ChapterManagement = () => {
                   onClick={addImageToList}
                   className="add-image-button"
                 >
-                  Add Image
+                  Thêm
                 </button>
               </div>
               <div className="image-preview">
@@ -288,7 +288,7 @@ const ChapterManagement = () => {
                 ))}
               </div>
               <div className="form-group">
-                <label htmlFor="price">Price</label>
+                <label htmlFor="price">Giá</label>
                 <input
                   type="number"
                   id="price"
@@ -299,14 +299,14 @@ const ChapterManagement = () => {
               </div>
               <div className="form-actions">
                 <button type="submit" className="submit-button">
-                  {editingChapterId ? "Update Chapter" : "Add Chapter"}
+                  {editingChapterId ? "Cập nhật chương" : "Thêm Chương"}
                 </button>
                 <button
                   type="button"
                   onClick={resetForm}
                   className="reset-button"
                 >
-                  Reset Form
+                  Xóa Form
                 </button>
               </div>
             </form>

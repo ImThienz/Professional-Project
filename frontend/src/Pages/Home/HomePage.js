@@ -20,7 +20,8 @@ const HomePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const genre = location.state?.genre || null; // Lấy thông tin thể loại từ Navigation
-  const token = localStorage.getItem("token") || localStorage.getItem("adminToken");
+  const token =
+    localStorage.getItem("token") || localStorage.getItem("adminToken");
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
@@ -30,7 +31,9 @@ const HomePage = () => {
 
       try {
         const response = genre
-          ? await axios.get(`http://localhost:8080/api/comics/category/${genre}`)
+          ? await axios.get(
+              `http://localhost:8080/api/comics/category/${genre}`
+            )
           : await axios.get("http://localhost:8080/api/v1/comics/getAll");
         setComics(response.data);
       } catch (err) {
@@ -61,19 +64,22 @@ const HomePage = () => {
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/orders/best-sellers", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:8080/api/orders/best-sellers",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setBestSellers(response.data);
       } catch (error) {
         console.error("Không thể tải danh sách truyện bán chạy:", error);
       }
-    };    
-  
+    };
+
     fetchBestSellers();
-  }, []);  
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -137,9 +143,7 @@ const HomePage = () => {
               </p>
             </div>
 
-            <button
-              className="viewAllBtn ml-auto"
-            >
+            <button className="viewAllBtn ml-auto">
               Xem tất cả <FaArrowRight />
             </button>
           </div>
@@ -180,7 +184,6 @@ const HomePage = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

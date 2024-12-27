@@ -20,7 +20,8 @@ const HomePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const genre = location.state?.genre || null; // Lấy thông tin thể loại từ Navigation
-  const token = localStorage.getItem("token") || localStorage.getItem("adminToken");
+  const token =
+    localStorage.getItem("token") || localStorage.getItem("adminToken");
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
@@ -30,7 +31,9 @@ const HomePage = () => {
 
       try {
         const response = genre
-          ? await axios.get(`http://localhost:8080/api/comics/category/${genre}`)
+          ? await axios.get(
+              `http://localhost:8080/api/comics/category/${genre}`
+            )
           : await axios.get("http://localhost:8080/api/v1/comics/getAll");
         setComics(response.data);
       } catch (err) {
@@ -61,19 +64,22 @@ const HomePage = () => {
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/orders/best-sellers", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:8080/api/orders/best-sellers",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setBestSellers(response.data);
       } catch (error) {
         console.error("Không thể tải danh sách truyện bán chạy:", error);
       }
-    };    
-  
+    };
+
     fetchBestSellers();
-  }, []);  
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -128,10 +134,10 @@ const HomePage = () => {
 
       {/* Slider Section */}
       {!genre && (
-        <div className="col-md-9 productRow">
+        <div className="col-md-12 productRow">
           {/* Phần tiêu đề hiển thị đầu tiên */}
           <div className="d-flex align-items-center">
-            <div className="info w-75">
+            <div className="info w-100 text-center">
               <h2 className="mb-0 hd mt-4">BEST SELLERS</h2>
               <p className="text-light text-sml mb-0">
                 Truyện bán chạy số 1 tại Việt Nam!!!
@@ -143,13 +149,15 @@ const HomePage = () => {
           {!token ? (
             // Thông báo yêu cầu đăng nhập
             <div className="alert alert-warning mt-4">
-              <h4 className="mb-0">Bạn cần đăng nhập để xem các mẫu truyện bán chạy!</h4>
+              <h4 className="mb-0">
+                Bạn cần đăng nhập để xem các mẫu truyện bán chạy!
+              </h4>
             </div>
           ) : (
             // Slider hiển thị khi có token
             <div className="product_row w-100 mt-4">
               <Swiper
-                slidesPerView={3}
+                slidesPerView={5}
                 spaceBetween={30}
                 pagination={{
                   clickable: true,
@@ -160,7 +168,9 @@ const HomePage = () => {
                 {bestSellers.map((item) => (
                   <SwiperSlide
                     key={item.comic._id}
-                    onClick={() => navigate(`/comics/${item.comic._id}/reviews`)}
+                    onClick={() =>
+                      navigate(`/comics/${item.comic._id}/reviews`)
+                    }
                     style={{ cursor: "pointer" }}
                   >
                     <div className="item productItem">

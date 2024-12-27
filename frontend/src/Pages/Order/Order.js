@@ -90,11 +90,11 @@ const Order = () => {
           },
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Lỗi khi cập nhật trạng thái giao hàng.");
       }
-  
+
       const updatedOrder = await response.json();
       setOrder(updatedOrder);
       alert("Đã đánh dấu là đã giao hàng.");
@@ -102,7 +102,7 @@ const Order = () => {
       console.error("Error updating delivery status:", error);
       alert("Đã xảy ra lỗi. Vui lòng thử lại.");
     }
-  };  
+  };
 
   const handleReviewChange = (productId, field, value) => {
     setReviews((prev) => ({
@@ -139,11 +139,14 @@ const Order = () => {
       }
 
       alert("Đánh giá đã được gửi!");
-      setReviews((prev) => ({ ...prev, [productId]: { rating: 0, comment: "" } }));
+      setReviews((prev) => ({
+        ...prev,
+        [productId]: { rating: 0, comment: "" },
+      }));
     } catch (error) {
       console.error("Error submitting review:", error);
     }
-    alert("Bạn đã đánh giá bộ này rồi, hihi !")
+    alert("Bạn đã đánh giá bộ này rồi, hihi !");
   };
 
   if (!order) return <p>Loading...</p>;
@@ -177,10 +180,10 @@ const Order = () => {
                       src={`http://localhost:8080${item.product.cover_image}`}
                       alt={item.product.title}
                       style={{
-                        width: '60px',
-                        height: '60px',
-                        objectFit: 'cover',
-                        border: '1px solid #ddd',
+                        width: "60px",
+                        height: "60px",
+                        objectFit: "cover",
+                        border: "1px solid #ddd",
                       }}
                       className="w-16 h-16 object-cover rounded"
                     />
@@ -264,20 +267,24 @@ const Order = () => {
             </button>
           )}
 
-          {order.isPaid && !order.isDelivered && userInfo && userInfo.isAdmin && (
-            <div className="mt-4">
-              <button
-                onClick={deliverHandler}
-                className="w-full py-2 bg-pink-500 text-white rounded hover:bg-pink-600"
-              >
-                Đánh dấu là đã giao hàng
-              </button><hr/>
-            </div>
-          )}
+          {order.isPaid &&
+            !order.isDelivered &&
+            userInfo &&
+            userInfo.isAdmin && (
+              <div className="mt-4">
+                <button
+                  onClick={deliverHandler}
+                  className="w-full py-2 bg-pink-500 text-white rounded hover:bg-pink-600"
+                >
+                  Đánh dấu là đã giao hàng
+                </button>
+                <hr />
+              </div>
+            )}
 
           {/* Phần đánh giá sản phẩm */}
           <div className="md:w-1/3">
-            {order.isPaid ? (
+            {order.isPaid && order.isDelivered ? (
               <>
                 <h2>Đánh giá sản phẩm</h2>
                 {order.orderItems.map((item) => (
@@ -292,7 +299,11 @@ const Order = () => {
                     <textarea
                       value={reviews[item.product._id]?.comment || ""}
                       onChange={(e) =>
-                        handleReviewChange(item.product._id, "comment", e.target.value)
+                        handleReviewChange(
+                          item.product._id,
+                          "comment",
+                          e.target.value
+                        )
                       }
                       placeholder="Viết đánh giá của bạn ở đây..."
                       style={{
@@ -321,14 +332,15 @@ const Order = () => {
                 ))}
               </>
             ) : (
-              <p><hr/>Thanh toán đi, rồi để lại Đánh giá tích cực cho sản phẩm của sốp Manga Comic nhé!</p>
+              <p>
+                <hr />
+                Thanh toán đi, rồi để lại Đánh giá tích cực cho sản phẩm của sốp
+                Manga Comic nhé!
+              </p>
             )}
           </div>
-
-
         </div>
       </div>
-
     </div>
   );
 };
