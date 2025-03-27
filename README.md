@@ -1,6 +1,7 @@
 # Web bán - đọc truyện trực tuyến
 Nhóm 6 - Khoa CNTT - Học viện Hàng không Việt Nam - 010100086402
 # FITVAA  
+# Project on React + Node.js
 [Cài lại module trong backend sau khi clone từ github về:]  
 'Remove-Item -Recurse -Force .\node_modules'  
 'npm i'  
@@ -17,7 +18,7 @@ VNP_TMN_CODE=your_vnp_tmn_code
 VNP_HASH_SECRET=your_vnp_hash_secret  
 VNP_URL=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html  
 VNP_RETURN_URL=http://localhost:8080/api/vnpay/vnpay_return  
-VNP_RETURN_URL_CHAPTER=http://localhost:8080/api/chapter-payments/vnpay-return
+VNP_RETURN_URL_CHAPTER=http://localhost:8080/api/chapter-payments/vnpay-return  
 FRONTEND_URL=http://localhost:3000  
   
 # MEMBERS:
