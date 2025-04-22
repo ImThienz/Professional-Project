@@ -1,7 +1,7 @@
 # Web bán - đọc truyện trực tuyến
 Nhóm 6 - Khoa CNTT - Học viện Hàng không Việt Nam - 010100086402
 # FITVAA  
-# Project on React + Node.js
+# MERN Stack Project (MongoDB Compass)
 [Cài lại module trong backend sau khi clone từ github về:]  
 'Remove-Item -Recurse -Force .\node_modules'  
 'npm i'  
@@ -21,9 +21,23 @@ VNP_RETURN_URL=http://localhost:8080/api/vnpay/vnpay_return
 VNP_RETURN_URL_CHAPTER=http://localhost:8080/api/chapter-payments/vnpay-return  
 FRONTEND_URL=http://localhost:3000  
   
+[backend/config/default.json:]  
+  "vnp_TmnCode": "your-tmn-code",  
+  "vnp_HashSecret": "your-hash-secret",  
+
+[backend/app.js:]  
+`mongoose .connect("mongodb://localhost:27017/<your-name-connection>")`  
+  
+## 🎬 Demo Giao diện
+![Demo](demo.gif)
+
 # MEMBERS:
 - Nguyễn Hồ Trường Giang - 2154810037 (LEADER)  
 - Vũ Thành Đạt - 2254810175  
 - Nguyễn Văn Sơn - 2254810168  
 - Trần Đình Đạt - 2154810039  
 - Nguyễn Gia Hy - 2154810005
+
+# Notes:
+- branch [master]: prj on Android Studio (Java)  
+- branch [report]: my report
